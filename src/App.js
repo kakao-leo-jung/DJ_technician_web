@@ -41,7 +41,31 @@ class App extends Component {
     });
   }
 
+  handleUpdate = (data) => {
+    const {information} = this.state;
+    this.setState({
+      information : information.map(info => {
+        if(info.id == data.id){
+          /* update 하고자 할 info */
+          return data;
+        }else{
+          /* 기존 변동없는 info */
+          return info;
+        }
+      })
+    });
+  }
+
   render(){
+
+    console.log('Current App State Changed!');
+    this.state.information.map(info => {
+      console.log('id : ' + info.id);
+      console.log('name : ' + info.name);
+      console.log('phone : ' + info.phone);
+    });
+    console.log('--------------------------------');
+
     return(
       <div>
         <PhoneForm
@@ -50,6 +74,7 @@ class App extends Component {
         <PhoneInfoList
           data={this.state.information}
           onRemoveProps={this.handleRemove}
+          onUpdateProps={this.handleUpdate}
         />
       </div>
     );

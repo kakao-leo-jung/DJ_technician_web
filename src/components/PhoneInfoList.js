@@ -15,6 +15,7 @@ class PhoneInfoList extends Component {
           key={info.id}
           info={info}
           onRemove={this.props.onRemoveProps}
+          onUpdate={this.props.onUpdateProps}
         />
       )
     );
