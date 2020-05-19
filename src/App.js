@@ -32,13 +32,25 @@ class App extends Component {
     });
   }
 
+  handleRemove = (data) => {
+    const {information} = this.state;
+    this.setState({
+      information : information.filter(
+        infoObject => infoObject.id != data.id
+      )
+    });
+  }
+
   render(){
     return(
       <div>
         <PhoneForm
-          OnCreateProps={this.handleCreate}
+          onCreateProps={this.handleCreate}
         />
-        <PhoneInfoList data={this.state.information} />
+        <PhoneInfoList
+          data={this.state.information}
+          onRemoveProps={this.handleRemove}
+        />
       </div>
     );
   }

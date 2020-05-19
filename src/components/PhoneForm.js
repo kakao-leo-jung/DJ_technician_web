@@ -17,7 +17,7 @@ class PhoneForm extends Component {
   handleSubmit = (event) => {
     /* 페이지 리로딩 방지 */
     event.preventDefault();
-    this.props.OnCreateProps(this.state);
+    this.props.onCreateProps(this.state);
     this.setState({
       name : '',
       phone : ''
