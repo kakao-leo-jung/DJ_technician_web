@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Color } from 'three';
 
 class PhoneInfo extends Component {
 
@@ -59,9 +60,10 @@ class PhoneInfo extends Component {
   render() {
 
     const style = {
-      border: '1px solid black',
+      border: '1px solid white',
       padding: '8px',
-      margin: '8px'
+      margin: '8px',
+      color: 'white'
     };
 
     const { editMode } = this.state;

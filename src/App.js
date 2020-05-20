@@ -3,7 +3,39 @@ import PhoneForm from './components/PhoneForm';
 import './App.css';
 import PhoneInfoList from './components/PhoneInfoList';
 
+/* React X Three Collaboration test */
+import * as THREE from 'three';
+
 class App extends Component {
+
+  /* Load Three.js Canvas in React Component */
+  componentDidMount() {
+    // === THREE.JS CODE START ===
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+
+    /* document 대신 ref 를 사용하여 react Component 로 붙인다. */
+    //document.body.appendChild( renderer.domElement );
+    this.mount.appendChild( renderer.domElement );
+
+
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+    camera.position.z = 5;
+    var animate = function () {
+      requestAnimationFrame( animate );
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render( scene, camera );
+    };
+    animate();
+    // === THREE.JS EXAMPLE CODE END ===
+  }
 
   id = 3;
   state = {
@@ -68,18 +100,23 @@ class App extends Component {
 
     return(
       <div>
-        <PhoneForm
-          onCreateProps={this.handleCreate}
-        />
-        <PhoneInfoList
-          data={this.state.information}
-          onRemoveProps={this.handleRemove}
-          onUpdateProps={this.handleUpdate}
-        />
-      </div>
+        <div style={{position:'absolute'}} ref={ref => (this.mount = ref)} />
+        <div style={{position:'relative', color:'white'}}>
+          <PhoneForm
+            onCreateProps={this.handleCreate}
+          />
+          <PhoneInfoList
+            data={this.state.information}
+            onRemoveProps={this.handleRemove}
+            onUpdateProps={this.handleUpdate}
+          />
+    </div>
+      </div>    
     );
   }
 
 }
 
 export default App;
+/*
+*/
