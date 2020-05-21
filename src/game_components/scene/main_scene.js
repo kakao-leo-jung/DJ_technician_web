@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import * as THREE from 'three';
+import CubeSampleObject from '../object/cube_sample_object';
+import SceneManager from '../manager/scene_manager';
 
 class MainScene extends Component {
 
@@ -7,23 +9,20 @@ class MainScene extends Component {
     const width = this.mount.clientWidth
     const height = this.mount.clientHeight
 
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-    const renderer = new THREE.WebGLRenderer({ antialias: true })
-    const geometry = new THREE.BoxGeometry(1, 1, 1)
-    const material = new THREE.MeshBasicMaterial({ color: 0xff00ff })
-    const cube = new THREE.Mesh(geometry, material)
+    const sceneManager = new SceneManager(new THREE.Scene());
 
-    camera.position.z = 4
-    scene.add(cube)
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000)
+    const renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setClearColor('#0e0e0e')
     renderer.setSize(width, height)
+    camera.position.z = 10
 
-    this.scene = scene
+
+    sceneManager.addObject(new CubeSampleObject());
+
+    this.sceneManager = sceneManager;
     this.camera = camera
     this.renderer = renderer
-    this.material = material
-    this.cube = cube
 
     window.addEventListener('resize', this.handleResize)
 
@@ -56,15 +55,14 @@ class MainScene extends Component {
   }
 
   animate = () => {
-    this.cube.rotation.x += 0.01
-    this.cube.rotation.y += 0.01
+    this.sceneManager.animateObject();
 
     this.renderScene()
     this.frameId = window.requestAnimationFrame(this.animate)
   }
 
   renderScene = () => {
-    this.renderer.render(this.scene, this.camera)
+    this.renderer.render(this.sceneManager.scene, this.camera)
   }
 
   render() {
