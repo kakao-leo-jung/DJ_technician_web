@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import * as THREE from 'three';
 import CubeSampleObject from '../object/cube_sample_object';
 import SceneManager from '../manager/scene_manager';
+import GalaxySampleObject from '../object/galaxy_sample_object';
+import { ClampToEdgeWrapping } from 'three';
 
 class MainScene extends Component {
 
@@ -11,14 +13,31 @@ class MainScene extends Component {
 
     const sceneManager = new SceneManager(new THREE.Scene());
 
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000)
+    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 2000)
+    camera.angle = 0;
+    camera.radius = 200;
+    camera.animate = () => {
+      var speed = Date.now() * 0.00050;
+      camera.position.x = Math.cos(speed) * camera.radius;
+      camera.position.z = Math.sin(speed) * camera.radius;
+      camera.lookAt(0,0,0);
+    }
+    sceneManager.addObject(camera);
+
+    
+
     const renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setClearColor('#0e0e0e')
     renderer.setSize(width, height)
-    camera.position.z = 10
+
 
 
     sceneManager.addObject(new CubeSampleObject());
+    const anotherCube = new CubeSampleObject();
+    anotherCube.position.x = 50;
+    sceneManager.addObject(anotherCube);
+
+    sceneManager.addObject(new GalaxySampleObject());
 
     this.sceneManager = sceneManager;
     this.camera = camera

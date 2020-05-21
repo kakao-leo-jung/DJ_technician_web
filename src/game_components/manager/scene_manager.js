@@ -8,6 +8,7 @@ class SceneManager {
   }
 
   addObject = (object) => {
+    this.scene.add(object);
     this.objectArray.push(object);
   }
 
