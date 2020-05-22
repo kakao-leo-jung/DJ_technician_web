@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import CubeSampleObject from '../object/cube_sample_object';
 import SceneManager from '../manager/scene_manager';
 import GalaxySampleObject from '../object/galaxy_sample_object';
-import { ClampToEdgeWrapping } from 'three';
 
 class MainScene extends Component {
 
