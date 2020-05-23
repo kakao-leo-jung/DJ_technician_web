@@ -17,7 +17,6 @@ class NeonSampleScene extends Component {
 
     /* Set renderer */
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    // renderer.setClearColor('#0e0e0e');
     renderer.setSize(width, height);
 
     /* Set Camera */
@@ -43,16 +42,6 @@ class NeonSampleScene extends Component {
     /* Set Composer */
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(sceneManager.scene, camera));
-    // const bloomPass = new BloomPass(1, 25, 4, 256);
-    // composer.addPass(bloomPass);
-    // const filmPass = new FilmPass(
-    //   0.35,   // noise intensity
-    //   0.025,  // scanline intensity
-    //   648,    // scanline count
-    //   false,  // grayscale
-    // );
-    // filmPass.renderToScreen = true;
-    // composer.addPass(filmPass);
     var params = {
       exposure: 0,
       bloomStrength: 0.6,
