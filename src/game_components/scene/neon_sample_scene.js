@@ -17,42 +17,43 @@ class NeonSampleScene extends Component {
 
     /* Set renderer */
     const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.toneMapping = THREE.ReinhardToneMapping;
     renderer.setSize(width, height);
 
     /* Set Camera */
     const fov = 50;
     const aspect = width / height;  // the canvas default
     const near = 0.1;
-    const far = 1000;
+    const far = 2000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = 8;
+    camera.position.z = 15;
 
     /* Set SceneManager */
     const sceneManager = new SceneManager(new THREE.Scene());
 
     {
       const color = 0xFFFFFF;
-      const intensity = 2;
-      const light = new THREE.DirectionalLight(color, intensity);
-      light.position.set(-1, 2, 4);
-      light.animate = () => {}
-      sceneManager.scene.add(light);
+      const intensity = 1;
+      const light = new THREE.PointLight(color, intensity);
+      camera.add(light);
+      sceneManager.scene.add(camera);
     }
 
     /* Set Composer */
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(sceneManager.scene, camera));
     var params = {
-      exposure: 0,
-      bloomStrength: 0.6,
+      exposure: 2,
+      bloomStrength: 2,
       bloomThreshold: 0,
       bloomRadius: 0
     };
     const unrealBloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth,window.innerHeight),
-      1.0,
-      0.2,
-      0.5
+      1.5,
+      0.4,
+      0.85
     );
     unrealBloomPass.threshold = params.bloomThreshold;
     unrealBloomPass.strength = params.bloomStrength;
@@ -61,12 +62,12 @@ class NeonSampleScene extends Component {
 
 
     /* Set BoxObjects */
-    const boxWidth = 1;
-    const boxHeight = 1;
-    const boxDepth = 1;
+    const boxWidth = 2;
+    const boxHeight = 0.8;
+    const boxDepth = 0.5;
     const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
     function makeInstance(geometry, color, x) {
-      const material = new THREE.MeshToonMaterial({ color });
+      const material = new THREE.MeshPhongMaterial({ color });
       const cube = new THREE.Mesh(geometry, material);
       cube.animate = () => {
         cube.rotation.x += 0.003;
@@ -77,8 +78,8 @@ class NeonSampleScene extends Component {
       return cube;
     }
     makeInstance(geometry, 0x44aa88, 0);
-    makeInstance(geometry, 0x8844aa, -2);
-    makeInstance(geometry, 0xaa8844, 2);
+    makeInstance(geometry, 0x8844aa, -5);
+    makeInstance(geometry, 0xaa8844, 5);
 
 
     window.addEventListener('resize', this.handleResize)

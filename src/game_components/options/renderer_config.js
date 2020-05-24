@@ -9,11 +9,11 @@ module.exports = {
   DefaultCamera : {
     fov : 50,
     near : 0.1,
-    far : 3000,
+    far : 5000,
     position : {
       x : 0,
       y : 0,
-      z : 100
+      z : 2000
     }
   },
 
