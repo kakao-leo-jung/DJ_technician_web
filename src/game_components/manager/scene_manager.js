@@ -12,9 +12,9 @@ class SceneManager {
     this.objectArray.push(object);
   }
 
-  animateObject = () => {
+  updateObject = (delta) => {
     this.objectArray.map(obj => {
-      obj.animate();
+      obj.animate(delta);
     })
   }
 

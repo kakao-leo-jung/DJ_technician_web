@@ -18,9 +18,10 @@ const setBlocks = (sceneManager) => {
 const makeBlock = (sceneManager, geometry, color, position) => {
   const material = new THREE.MeshPhongMaterial({ color });
   const cube = new THREE.Mesh(geometry, material);
-  cube.animate = () => {
-    cube.rotation.x += 0.003;
-    cube.rotation.y += 0.003;
+  cube.animate = (delta) => {
+    const speed = 0.03;
+    cube.rotation.x += speed * delta;
+    cube.rotation.y += speed * delta;
   }
   cube.position.x = position.x;
   cube.position.y = position.y;

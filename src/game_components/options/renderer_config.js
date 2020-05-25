@@ -6,6 +6,10 @@
 
 module.exports = {
 
+  DefaultRenderer : {
+    clearColor : 0x1f1f1f
+  },
+
   DefaultCamera : {
     fov : 50,
     near : 0.1,
@@ -13,6 +17,16 @@ module.exports = {
     position : {
       x : 0,
       y : 0,
+      z : 2000
+    }
+  },
+
+  DefaultLight : {
+    color : 0xFFFFFF,
+    intensity : 3,
+    position : {
+      x : 0,
+      y : 2000,
       z : 2000
     }
   },

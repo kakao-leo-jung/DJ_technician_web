@@ -5,6 +5,7 @@ import SceneManager from 'game_components/manager/scene_manager';
 import * as PassManager from 'game_components/manager/pass_manager';
 import * as ObjectManager from 'game_components/manager/object_manager';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { Vector3 } from 'three';
 
 class MainScene extends Component {
 
@@ -16,6 +17,7 @@ class MainScene extends Component {
     /* 1. Set Renderer */
     const renderer = new THREE.WebGLRenderer({ antialias : true});
     renderer.setSize(clientWidth, clientHeight);
+    renderer.setClearColor(config.DefaultRenderer.clearColor);
     this.renderer = renderer;
 
     /* 3. set SceneManager */
@@ -31,16 +33,17 @@ class MainScene extends Component {
       cameraConfig.far
     )
     camera.position.z = cameraConfig.position.z;
-    {
-      const color = 0xFFFFFF;
-      const intensity = 5;
-      const light = new THREE.PointLight(color, intensity);
-      camera.add(light);
-      sceneManager.scene.add(camera);
-    }
     this.camera = camera;
 
-    /* 4. setComposer */
+    /* 4. setLight */
+    const lightConfig = config.DefaultLight;
+    const light = new THREE.PointLight(lightConfig.color, lightConfig.intensity);
+    light.position.set(lightConfig.position.x, lightConfig.position.y, lightConfig.position.z);
+    sceneManager.scene.add(light);
+
+    
+
+    /* 5. setComposer */
     const composer = new EffectComposer(this.renderer);
     PassManager.setNeonPass(
       composer,
@@ -50,15 +53,16 @@ class MainScene extends Component {
     );
     this.composer = composer;
 
-    /* 5. setObjects */
+    /* 6. setObjects */
     ObjectManager.setInGameObjects(this.sceneManager);
 
-    /* 6. set Resizable */
+    /* 7. set Resizable */
     window.addEventListener('resize', this.handleResize)
 
-    /* 7. mount this as DOM React Component */
+    /* 8. mount this as DOM React Component */
     this.mount.appendChild(this.composer.renderer.domElement);
-    this.then = 0;
+    this.clock = new THREE.Clock();
+    this.delta = this.clock.getDelta();
     this.start();
 
   }
@@ -70,11 +74,11 @@ class MainScene extends Component {
   }
 
   handleResize = () => {
-    const width = this.mount.clientWidth
-    const height = this.mount.clientHeight
-    this.composer.setSize(width, height)
-    this.camera.aspect = width / height
-    this.camera.updateProjectionMatrix()
+    const width = this.mount.clientWidth;
+    const height = this.mount.clientHeight;
+    this.renderer.setSize(width, height);
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
   }
 
   start = () => {
@@ -87,18 +91,14 @@ class MainScene extends Component {
     cancelAnimationFrame(this.frameId)
   }
 
-  animate = (now) => {
-    now *= 0.001;  // convert to seconds
-    const deltaTime = now - this.then;
-    this.then = now;
-    this.sceneManager.animateObject();
-    this.renderScene(deltaTime);
+  animate = () => {
+    this.sceneManager.updateObject(this.delta = this.clock.getDelta());
+    this.renderScene();
     this.frameId = window.requestAnimationFrame(this.animate)
   }
 
-  renderScene = (deltaTime) => {
-    // this.renderer.render(this.sceneManager.scene, this.camera)
-    this.composer.render(deltaTime);
+  renderScene = () => {
+    this.composer.render();
   }
 
   render() {
