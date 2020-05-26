@@ -1,33 +1,36 @@
 import * as THREE from 'three';
 import InGameConfig from 'game_components/options/ingame_config';
+import BlockObject from 'game_components/object/block_object';
 
 const setInGameObjects = (sceneManager) => {
-  setBlocks(sceneManager);
+  setBMSBlocks(sceneManager, new Array(
+    /* Temp Blocks */
+    {type:0, time:0},
+    {type:1, time:1},
+    {type:2, time:2},
+    {type:3, time:3},
+    {type:4, time:4},
+    {type:5, time:5},
+    {type:6, time:6},
+    )
+  );
 }
 
-const setBlocks = (sceneManager) => {
-  const config = InGameConfig.Block;
-  const geometry = new THREE.BoxGeometry(config.width, config.height, config.depth);
-  
-  makeBlock(sceneManager, geometry, 0x44aa88, {x : 0, y : 0, z : 0});
-  makeBlock(sceneManager, geometry, 0x8844aa, {x : -300, y : 0, z : 0});
-  makeBlock(sceneManager, geometry, 0xaa8844, {x : 300, y : 0, z : 0});
+const setBMSBlocks = (sceneManager, noteList) => {
+
+  noteList.forEach(note => {
+    sceneManager.addObject(makeGameBlock(note.type, note.time));
+  });
 
 }
 
-const makeBlock = (sceneManager, geometry, color, position) => {
-  const material = new THREE.MeshPhongMaterial({ color });
-  const cube = new THREE.Mesh(geometry, material);
-  cube.animate = (delta) => {
-    const speed = 0.03;
-    cube.rotation.x += speed * delta;
-    cube.rotation.y += speed * delta;
-  }
-  cube.position.x = position.x;
-  cube.position.y = position.y;
-  cube.position.z = position.z;
-  sceneManager.addObject(cube);
-  return cube;
+const makeGameBlock = (type, time) => {
+  const blockObject = new BlockObject(
+    /* size */ InGameConfig.Block[type].size,
+    /* color */ InGameConfig.Block[type].color,
+    /* position */ {x : InGameConfig.Block[type].posX, y : time * 100, z : 0}
+    );
+  return blockObject;
 }
 
 export {setInGameObjects}
