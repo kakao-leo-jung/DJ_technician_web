@@ -14,7 +14,7 @@ module.exports = {
         height : 80,
         depth : 50,
       },
-      color : 0xffffff,
+      color : 0x000000,
       posX : 0
     },
     {
@@ -24,7 +24,7 @@ module.exports = {
         height : 80,
         depth : 50,
       },
-      color : 0xffffff,
+      color : 0x00aaaa,
       posX : 200
     },
     {
@@ -35,7 +35,7 @@ module.exports = {
         depth : 50,
       },
       color : 0xffffff,
-      posX : 350
+      posX : 400
     },
     {
       /* 4 Key */
@@ -44,7 +44,7 @@ module.exports = {
         height : 80,
         depth : 50,
       },
-      color : 0xffffff,
+      color : 0x00ffff,
       posX : 550
     },
     {
@@ -64,7 +64,7 @@ module.exports = {
         height : 80,
         depth : 50,
       },
-      color : 0xffffff,
+      color : 0x00aaaa,
       posX : 1000
     },
     {

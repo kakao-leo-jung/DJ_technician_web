@@ -13,20 +13,20 @@ module.exports = {
   DefaultCamera : {
     fov : 50,
     near : 0.1,
-    far : 5000,
+    far : 10000,
     position : {
       x : 0,
       y : 0,
-      z : 2000
+      z : 3000
     }
   },
 
   DefaultLight : {
     color : 0xFFFFFF,
-    intensity : 3,
+    intensity : 2,
     position : {
       x : 0,
-      y : 2000,
+      y : 0,
       z : 2000
     }
   },

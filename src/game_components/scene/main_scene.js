@@ -5,7 +5,7 @@ import SceneManager from 'game_components/manager/scene_manager';
 import * as PassManager from 'game_components/manager/pass_manager';
 import * as ObjectManager from 'game_components/manager/object_manager';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
-import { Vector3 } from 'three';
+import * as CameraManager from 'game_components/manager/camera_manager';
 
 class MainScene extends Component {
 
@@ -34,6 +34,9 @@ class MainScene extends Component {
     )
     camera.position.z = cameraConfig.position.z;
     this.camera = camera;
+
+    /* 3-1 set camera OrbitControls */
+    CameraManager.setDefaultOrbitControl(this.sceneManager, this.camera, this.renderer);
 
     /* 4. setLight */
     const lightConfig = config.DefaultLight;
