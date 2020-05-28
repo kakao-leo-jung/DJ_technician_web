@@ -37,13 +37,13 @@ class MainScene extends Component {
     this.camera = camera;
 
     /* 3-1 set camera OrbitControls */
-    // CameraManager.setDefaultOrbitControl(this.sceneManager, this.camera, this.renderer);
+    CameraManager.setDefaultOrbitControl(this.sceneManager, this.camera, this.renderer);
 
     /* 4. setLight */
     const lightConfig = config.DefaultLight;
     const light = new THREE.PointLight(lightConfig.color, lightConfig.intensity);
     light.position.set(lightConfig.position.x, lightConfig.position.y, lightConfig.position.z);
-    sceneManager.scene.add(light);    
+    sceneManager.scene.add(light);
 
     /* 5. setComposer */
     const composer = new EffectComposer(this.renderer);
