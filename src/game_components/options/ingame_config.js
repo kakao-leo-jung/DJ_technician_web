@@ -43,7 +43,7 @@ module.exports = {
         height : 50,
         depth : 30,
       },
-      color : 0xababab,
+      color : 0x000000,
       posX : 0
     },
     {

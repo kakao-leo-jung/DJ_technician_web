@@ -1,9 +1,9 @@
-import * as THREE from 'three';
-import InGameConfig from 'game_components/options/ingame_config';
-import BlockObject from 'game_components/object/block_object';
+import * as BlockManager from 'game_components/manager/objects/block_manager';
 
 const setInGameObjects = (sceneManager) => {
-  setBMSBlocks(sceneManager, new Array(
+
+  /* Set Block Objects */
+  BlockManager.setBMSBlocks(sceneManager, new Array(
     /* Temp Blocks */
     {type:0, time:0},
     {type:1, time:1},
@@ -14,23 +14,9 @@ const setInGameObjects = (sceneManager) => {
     {type:6, time:6},
     )
   );
-}
 
-const setBMSBlocks = (sceneManager, noteList) => {
 
-  noteList.forEach(note => {
-    sceneManager.addObject(makeGameBlock(note.type, note.time));
-  });
 
-}
-
-const makeGameBlock = (type, time) => {
-  const blockObject = new BlockObject(
-    /* size */ InGameConfig.Block[type].size,
-    /* color */ InGameConfig.Block[type].color,
-    /* position */ {x : InGameConfig.Block[type].posX, y : time * 100, z : 0}
-    );
-  return blockObject;
 }
 
 export {setInGameObjects}

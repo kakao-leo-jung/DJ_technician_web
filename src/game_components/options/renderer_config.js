@@ -16,8 +16,13 @@ module.exports = {
     far : 10000,
     position : {
       x : 0,
-      y : 0,
-      z : 3000
+      y : 1000,
+      z : 4000
+    },
+    lookAt : {
+      x : 0,
+      y : 1000,
+      z : 0
     }
   },
 

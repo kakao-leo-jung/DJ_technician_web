@@ -32,11 +32,12 @@ class MainScene extends Component {
       cameraConfig.near,
       cameraConfig.far
     )
-    camera.position.z = cameraConfig.position.z;
+    camera.position.set(cameraConfig.position.x, cameraConfig.position.y, cameraConfig.position.z);
+    camera.lookAt(new THREE.Vector3(cameraConfig.lookAt.x, cameraConfig.lookAt.y, cameraConfig.lookAt.z));
     this.camera = camera;
 
     /* 3-1 set camera OrbitControls */
-    CameraManager.setDefaultOrbitControl(this.sceneManager, this.camera, this.renderer);
+    // CameraManager.setDefaultOrbitControl(this.sceneManager, this.camera, this.renderer);
 
     /* 4. setLight */
     const lightConfig = config.DefaultLight;
