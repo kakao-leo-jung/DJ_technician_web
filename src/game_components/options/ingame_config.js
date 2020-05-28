@@ -11,71 +11,70 @@ module.exports = {
       /* 1 Key */
       size : {
         width : 200,
-        height : 80,
-        depth : 50,
+        height : 50,
+        depth : 30,
       },
-      color : 0x000000,
-      posX : 0
+      color : 0xffffff,
+      posX : -635
     },
     {
       /* 2 Key */
       size : {
         width : 150,
-        height : 80,
-        depth : 50,
+        height : 50,
+        depth : 30,
       },
       color : 0x00aaaa,
-      posX : 200
+      posX : -440
     },
     {
       /* 3 Key */
       size : {
         width : 200,
-        height : 80,
-        depth : 50,
+        height : 50,
+        depth : 30,
       },
       color : 0xffffff,
-      posX : 400
-    },
+      posX : -245    },
     {
       /* 4 Key */
       size : {
         width : 250,
-        height : 80,
-        depth : 50,
+        height : 50,
+        depth : 30,
       },
-      color : 0x00ffff,
-      posX : 550
+      color : 0xababab,
+      posX : 0
     },
     {
       /* 5 Key */
       size : {
         width : 200,
-        height : 80,
-        depth : 50,
+        height : 50,
+        depth : 30,
       },
       color : 0xffffff,
-      posX : 800
+      posX : 245
     },
     {
       /* 6 Key */
       size : {
         width : 150,
-        height : 80,
-        depth : 50,
+        height : 50,
+        depth : 30,
       },
       color : 0x00aaaa,
-      posX : 1000
+      posX : 440
     },
     {
       /* 7 Key */
       size : {
         width : 200,
-        height : 80,
-        depth : 50,
+        height : 50,
+        depth : 30,
       },
       color : 0xffffff,
-      posX : 1150
+      posX : 635
     },
   ]
 

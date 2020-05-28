@@ -4,7 +4,13 @@ class SceneManager {
 
   constructor(scene) {
     this.scene = scene;
+    this.scene.updateMatrixWorld();
     this.objectArray = [];
+
+    /* GridHelper */
+    const gridHelper = new THREE.GridHelper(3000, 300);
+    this.scene.add(gridHelper);
+
   }
 
   addObject = (object) => {

@@ -42,9 +42,7 @@ class MainScene extends Component {
     const lightConfig = config.DefaultLight;
     const light = new THREE.PointLight(lightConfig.color, lightConfig.intensity);
     light.position.set(lightConfig.position.x, lightConfig.position.y, lightConfig.position.z);
-    sceneManager.scene.add(light);
-
-    
+    sceneManager.scene.add(light);    
 
     /* 5. setComposer */
     const composer = new EffectComposer(this.renderer);

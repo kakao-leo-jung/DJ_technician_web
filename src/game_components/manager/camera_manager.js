@@ -6,7 +6,6 @@ const setDefaultOrbitControl = (sceneManager, camera, renderer) => {
   orbitControls.animate = (delta) => {
     orbitControls.update()
   }
-  sceneManager.addObject(orbitControls);
 
 }
 
