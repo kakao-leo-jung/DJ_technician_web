@@ -5,9 +5,14 @@
 ## Game-Server
 - Run Server
 ```
-/* 임시 */
+/* you should install docker first! */
 $ cd web_socket_server
-$ ./gradlew build && java -jar build/libs/web_socket_server-0.0.1-SNAPSHOT.jar
+$ docker build -t ${hub_name}/${image_name:tag}
+$ docker run --rm -p -d 8080:8080 --name dj_socket ${hub_name}/${image_name:tag}
+
+/* 확인 */
+$ docker ps
+$ curl localhost:8080 /* 확인 */
 ```
 
 ## UserManagement-Server

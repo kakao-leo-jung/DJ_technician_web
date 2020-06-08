@@ -1,7 +1,9 @@
-FROM openjdk:11-jdk-alpine
+FROM openjdk:11-jdk
 
-ARG JAR_FILE=target/*.jar
+WORKDIR /root
 
-COPY ${JAR_FILE} app.jar
+COPY . .
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+CMD ./gradlew build
+
+ENTRYPOINT [ "java", "-jar", "./build/libs/web_socket_server-0.0.1-SNAPSHOT.jar" ]
