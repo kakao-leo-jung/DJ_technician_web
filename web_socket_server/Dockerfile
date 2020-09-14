@@ -4,6 +4,6 @@ WORKDIR /root
 
 COPY . .
 
-CMD ./gradlew build
+RUN ./gradlew build
 
 ENTRYPOINT [ "java", "-jar", "./build/libs/web_socket_server-0.0.1-SNAPSHOT.jar" ]
