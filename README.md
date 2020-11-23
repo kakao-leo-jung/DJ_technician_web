@@ -1,6 +1,13 @@
 # DJ Technician WEB 버전
 
 ## Client
+- Run Client development server
+```
+/* you should install npm first! */
+$ cd web_client
+$ npm install /* At first, you should install npm modules */
+$ npm start
+```
 
 ## Game-Server
 - Run Server
