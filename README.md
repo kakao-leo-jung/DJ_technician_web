@@ -1,4 +1,4 @@
-# DJ Technician WEB 버전
+# DJ Technician WEB ver.
 
 ## Client
 - Run Client development server
