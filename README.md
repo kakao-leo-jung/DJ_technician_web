@@ -1,6 +1,12 @@
 # DJ Technician WEB 버전
 
 ## Client
+##### Tech stack
+- React (create-react-app)
+- Three.js
+- Stomp.js
+
+##### Setup
 - Run Client development server
 ```
 /* you should install npm first! */
@@ -10,7 +16,13 @@ $ npm start
 ```
 
 ## Game-Server
-- Run Server
+
+##### Tech stack
+- Spring boot
+- Docker
+
+##### Setup
+- Run web-socket Server
 ```
 /* you should install docker first! */
 $ cd web_socket_server
@@ -23,3 +35,4 @@ $ curl localhost:8080 /* 확인 */
 ```
 
 ## UserManagement-Server
+TODO : 정소민 Part

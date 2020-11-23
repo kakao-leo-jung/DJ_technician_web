@@ -78,7 +78,6 @@ class MainScene extends Component {
 
   animate = () => {
     this.sceneManager.animateObject();
-
     this.renderScene()
     this.frameId = window.requestAnimationFrame(this.animate)
   }
