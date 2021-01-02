@@ -16,9 +16,9 @@ class NeonSampleScene extends Component {
     const height = this.mount.clientHeight;
 
     /* Set renderer */
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio( window.devicePixelRatio );
-		renderer.toneMapping = THREE.ReinhardToneMapping;
+    const renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.toneMapping = THREE.ReinhardToneMapping;
     renderer.setSize(width, height);
 
     /* Set Camera */
@@ -50,10 +50,10 @@ class NeonSampleScene extends Component {
       bloomRadius: 0
     };
     const unrealBloomPass = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth,window.innerHeight),
-      1.5,
-      0.4,
-      0.85
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        1.5,
+        0.4,
+        0.85
     );
     unrealBloomPass.threshold = params.bloomThreshold;
     unrealBloomPass.strength = params.bloomStrength;
@@ -66,8 +66,9 @@ class NeonSampleScene extends Component {
     const boxHeight = 0.8;
     const boxDepth = 0.5;
     const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
     function makeInstance(geometry, color, x) {
-      const material = new THREE.MeshPhongMaterial({ color });
+      const material = new THREE.MeshPhongMaterial({color});
       const cube = new THREE.Mesh(geometry, material);
       cube.animate = () => {
         cube.rotation.x += 0.003;
@@ -77,6 +78,7 @@ class NeonSampleScene extends Component {
       sceneManager.addObject(cube);
       return cube;
     }
+
     makeInstance(geometry, 0x44aa88, 0);
     makeInstance(geometry, 0x8844aa, -5);
     makeInstance(geometry, 0xaa8844, 5);
@@ -132,12 +134,12 @@ class NeonSampleScene extends Component {
 
   render() {
     return (
-      <div
-        className = "neon_sample_scene"
-        ref={mount => {
-          this.mount = mount
-        }}
-      />
+        <div
+            className="neon_sample_scene"
+            ref={mount => {
+              this.mount = mount
+            }}
+        />
     );
   }
 

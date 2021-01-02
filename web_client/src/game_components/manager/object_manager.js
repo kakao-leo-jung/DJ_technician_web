@@ -1,6 +1,6 @@
 import * as BlockManager from 'game_components/manager/objects/block_manager';
 
-const setInGameObjects = (sceneManager) => {
+export const setInGameObjects = (sceneManager) => {
 
   /* Set Block Objects */
   BlockManager.setBMSBlocks(sceneManager, [
@@ -13,8 +13,11 @@ const setInGameObjects = (sceneManager) => {
     {type:6, time:6}]
   );
 
+}
+
+export const setLoginObjects = (sceneManager) => {
+
+  /* TODO: set Login Objects */
 
 
 }
-
-export {setInGameObjects}

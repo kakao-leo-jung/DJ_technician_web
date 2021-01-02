@@ -21,13 +21,12 @@ class MainScene extends Component {
       camera.position.x = Math.cos(speed) * camera.radius;
       camera.position.z = Math.sin(speed) * camera.radius;
       // camera.position.z = camera.radius;
-      camera.lookAt(0,0,0);
+      camera.lookAt(0, 0, 0);
     }
     sceneManager.addObject(camera);
 
-    
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true })
+    const renderer = new THREE.WebGLRenderer({antialias: true})
     renderer.setClearColor('#0e0e0e')
     renderer.setSize(width, height)
 
@@ -39,7 +38,8 @@ class MainScene extends Component {
     sceneManager.addObject(anotherCube);
     sceneManager.addObject(new GalaxySampleObject());
     const ambientLight = new THREE.AmbientLight(0x404040);
-    ambientLight.animate = () => {}
+    ambientLight.animate = () => {
+    }
     sceneManager.addObject(ambientLight);
 
     this.sceneManager = sceneManager;
@@ -88,12 +88,12 @@ class MainScene extends Component {
 
   render() {
     return (
-      <div
-        className = "main_scene"
-        ref={mount => {
-          this.mount = mount
-        }}
-      />
+        <div
+            className="main_scene"
+            ref={mount => {
+              this.mount = mount
+            }}
+        />
     )
   }
 

@@ -1,9 +1,5 @@
-FROM openjdk:11-jdk
-
+FROM openjdk:13
 WORKDIR /root
-
 COPY . .
-
 RUN ./gradlew build
-
-ENTRYPOINT [ "java", "-jar", "./build/libs/web_socket_server-0.0.1-SNAPSHOT.jar" ]
+ENTRYPOINT ["java", "-jar", "./build/libs/djtechnician-0.0.1-SNAPSHOT.war"]

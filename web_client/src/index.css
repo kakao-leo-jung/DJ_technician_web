@@ -27,6 +27,14 @@ body {
   left: 0;
 }
 
+.login_scene {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .neon_sample_scene {
   position: absolute;
   top: 0;

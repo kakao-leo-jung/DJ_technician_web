@@ -3,14 +3,14 @@ import './css/ui_left_bar.css';
 
 class UILeftBar extends Component {
 
-  render(){
+  render() {
     return (
-      <div id="mySidenav" className="sidenav">
-        <div><a href="#"></a></div>
-        <div><a href="#"></a></div>
-        <div><a href="#"></a></div>
-        <div><a href="#"></a></div>
-      </div>
+        <div id="mySidenav" className="sidenav">
+          <div><a href="#">SideMenu1</a></div>
+          <div><a href="#">SideMenu2</a></div>
+          <div><a href="#">SideMenu3</a></div>
+          <div><a href="#">SideMenu4</a></div>
+        </div>
     );
   }
 

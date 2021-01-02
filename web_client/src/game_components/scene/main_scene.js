@@ -4,7 +4,7 @@ import config from 'game_components/options/renderer_config';
 import SceneManager from 'game_components/manager/scene_manager';
 import * as PassManager from 'game_components/manager/pass_manager';
 import * as ObjectManager from 'game_components/manager/object_manager';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer';
 import * as CameraManager from 'game_components/manager/camera_manager';
 
 class MainScene extends Component {
@@ -15,22 +15,22 @@ class MainScene extends Component {
     const clientHeight = this.mount.clientHeight;
 
     /* 1. Set Renderer */
-    const renderer = new THREE.WebGLRenderer({ antialias : true});
+    const renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(clientWidth, clientHeight);
     renderer.setClearColor(config.DefaultRenderer.clearColor);
     this.renderer = renderer;
 
-    /* 3. set SceneManager */
+    /* 2. set SceneManager */
     const sceneManager = new SceneManager(new THREE.Scene());
     this.sceneManager = sceneManager;
 
     /* 3. set Camera */
     const cameraConfig = config.DefaultCamera;
     const camera = new THREE.PerspectiveCamera(
-      cameraConfig.fov,
-      clientWidth / clientHeight,
-      cameraConfig.near,
-      cameraConfig.far
+        cameraConfig.fov,
+        clientWidth / clientHeight,
+        cameraConfig.near,
+        cameraConfig.far
     )
     camera.position.set(cameraConfig.position.x, cameraConfig.position.y, cameraConfig.position.z);
     camera.lookAt(new THREE.Vector3(cameraConfig.lookAt.x, cameraConfig.lookAt.y, cameraConfig.lookAt.z));
@@ -48,10 +48,10 @@ class MainScene extends Component {
     /* 5. setComposer */
     const composer = new EffectComposer(this.renderer);
     PassManager.setNeonPass(
-      composer,
-      this.sceneManager.scene,
-      this.camera,
-      {width : clientWidth, height : clientHeight}
+        composer,
+        this.sceneManager.scene,
+        this.camera,
+        {width: clientWidth, height: clientHeight}
     );
     this.composer = composer;
 
@@ -105,12 +105,12 @@ class MainScene extends Component {
 
   render() {
     return (
-      <div
-        className="main_scene"
-        ref={mount => {
-          this.mount = mount
-        }}
-      />
+        <div
+            className="main_scene"
+            ref={mount => {
+              this.mount = mount
+            }}
+        />
     );
   }
 }
