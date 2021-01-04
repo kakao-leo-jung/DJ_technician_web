@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import UILeftBar from './ui_left_bar';
+import UITopBar from './ui_top_bar'
+// import UILeftBar from './ui_left_bar';
 
 class UIScene extends Component {
 
   render() {
     return (
         <div>
-          <UILeftBar/>
+          {/*<UILeftBar/>*/}
+          <UITopBar/>
         </div>
     );
   }

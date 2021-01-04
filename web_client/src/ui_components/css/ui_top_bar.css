@@ -1,25 +1,11 @@
-.bottomBar {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+/* The side navigation menu */
+.topNav {
+  width: 100%; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  top: 0;
+  background-color: #fcfcfc2a; /* Black*/
   overflow: hidden; /* Disable horizontal scroll */
-}
-
-.progressBar {
-  height: 3px;
-  background-color: #5d5d5d;
-}
-
-.currentBar {
-  width: 0;
-  height: 3px;
-  background-color: #723333;
-}
-
-/* The bottom navigation menu */
-.bottomNav {
-  background-color: rgba(252, 252, 252, 0.16); /* Black*/
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
   text-align: center;
   align-items: center;
   display: flex;
@@ -27,7 +13,7 @@
 }
 
 /* The navigation menu links */
-.bottomNav a {
+.topNav a {
   display: block;
   padding: 8px 8px 8px 32px;
   text-decoration: none;
@@ -37,12 +23,12 @@
 }
 
 /* When you mouse over the navigation links, change their color */
-.bottomNav a:hover {
+.topNav a:hover {
   color: #f1f1f1;
 }
 
 /* Position and style the close button (top right corner) */
-.bottomNav .closebtn {
+.topNav .closebtn {
   position: absolute;
   top: 0;
   right: 25px;
@@ -58,11 +44,11 @@
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .bottomNav {
+  .topNav {
     padding-top: 15px;
   }
 
-  .bottomNav a {
+  .topNav a {
     font-size: 18px;
   }
 }
