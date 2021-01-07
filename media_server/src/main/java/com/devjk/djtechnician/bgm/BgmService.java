@@ -1,5 +1,6 @@
 package com.devjk.djtechnician.bgm;
 
+import com.devjk.djtechnician.bgm.dto.BgmInfo;
 import com.devjk.djtechnician.bgm.dto.BgmList;
 import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.Blob;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BgmService {
@@ -36,13 +39,22 @@ public class BgmService {
             Storage.BlobListOption.prefix(bgmDirectory)
     );
 
-    List<String> list = new ArrayList<>();
+    List<BgmInfo> list = new ArrayList<>();
     for(Blob blob : blobs.iterateAll()){
-      list.add(blob.getName());
+      String blobName = blob.getName();
+      int blobLength = blobName.length();
+      char lastCharacter = blobName.charAt(blobLength - 1);
+      if(lastCharacter == '/'){
+        continue;
+      }
+      int lastSlashIndex = blobName.lastIndexOf("/");
+      BgmInfo bgmInfo = new BgmInfo(blobName.substring(0, lastSlashIndex + 1),
+              blobName.substring(lastSlashIndex + 1, blobLength));
+      list.add(bgmInfo);
     }
 
     BgmList bgmList = new BgmList();
-    bgmList.setTitles(list);
+    bgmList.setBgmInfoList(list);
 
     LOGGER.debug("[■■■■■■■■■■■][BgmService][getBgmListFromGCS][FINISH] : SEARCHING STORAGE BUCKET");
 

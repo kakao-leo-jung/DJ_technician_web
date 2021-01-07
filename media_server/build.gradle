@@ -23,6 +23,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.google.cloud:spring-cloud-gcp-starter-storage'
     implementation 'org.projectlombok:lombok:1.18.16'
+
+    compile("org.aspectj:aspectjweaver")
+    compile("org.aspectj:aspectjrt")
+
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

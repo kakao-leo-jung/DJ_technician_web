@@ -4,13 +4,13 @@ import java.util.List;
 
 public class BgmList {
 
-  private List<String> titles;
+  private List<BgmInfo> bgmInfoList;
 
-  public List<String> getTitles() {
-    return titles;
+  public List<BgmInfo> getBgmInfoList() {
+    return bgmInfoList;
   }
 
-  public void setTitles(List<String> titles) {
-    this.titles = titles;
+  public void setBgmInfoList(List<BgmInfo> bgmInfoList) {
+    this.bgmInfoList = bgmInfoList;
   }
 }
