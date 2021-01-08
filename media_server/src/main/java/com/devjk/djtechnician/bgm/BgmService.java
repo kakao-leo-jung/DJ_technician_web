@@ -3,19 +3,15 @@ package com.devjk.djtechnician.bgm;
 import com.devjk.djtechnician.bgm.dto.BgmInfo;
 import com.devjk.djtechnician.bgm.dto.BgmList;
 import com.google.api.gax.paging.Page;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.Bucket;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.storage.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BgmService {
@@ -30,15 +26,11 @@ public class BgmService {
   private String bucketName;
 
   public BgmList getBgmListFromGCS(){
-
-    LOGGER.debug("[■■■■■■■■■■■][BgmService][getBgmListFromGCS][START] : SEARCHING STORAGE BUCKET");
-
     Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
     Bucket bucket = storage.get(bucketName);
     Page<Blob> blobs = bucket.list(
             Storage.BlobListOption.prefix(bgmDirectory)
     );
-
     List<BgmInfo> list = new ArrayList<>();
     for(Blob blob : blobs.iterateAll()){
       String blobName = blob.getName();
@@ -52,13 +44,21 @@ public class BgmService {
               blobName.substring(lastSlashIndex + 1, blobLength));
       list.add(bgmInfo);
     }
-
     BgmList bgmList = new BgmList();
     bgmList.setBgmInfoList(list);
-
-    LOGGER.debug("[■■■■■■■■■■■][BgmService][getBgmListFromGCS][FINISH] : SEARCHING STORAGE BUCKET");
-
     return bgmList;
+  }
+
+  public byte[] getBgmFileFromGCS(String path, String file_name) {
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
+    Blob blob = storage.get(BlobId.of(bucketName, path + file_name));
+    blob.downloadTo(outputStream);
+
+    LOGGER.debug("Get media file from storage");
+    LOGGER.debug(outputStream.toString());
+
+    return outputStream.toByteArray();
   }
 
 }
