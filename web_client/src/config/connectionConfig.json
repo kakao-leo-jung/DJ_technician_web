@@ -1,3 +1,4 @@
 {
-  "socketServerUrl": "http://localhost:8080/socket"
+  "socketServerUrl": "http://localhost:8080/socket/",
+  "bgmServerUrl": "http://localhost:8081/api/bgm/"
 }

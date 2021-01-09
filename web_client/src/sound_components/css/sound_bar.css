@@ -23,23 +23,26 @@
   text-align: center;
   align-items: center;
   display: flex;
+  height: 50px;
   justify-content: center;
 }
 
 /* The navigation menu links */
 .bottomNav a {
   display: block;
-  padding: 8px 8px 8px 32px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   text-decoration: none;
+  text-align: center;
   font-size: 25px;
   color: #818181;
-  transition: 0.3s;
+  cursor: default;
 }
 
 /* When you mouse over the navigation links, change their color */
-.bottomNav a:hover {
+/* .bottomNav a:hover {
   color: #f1f1f1;
-}
+} */
 
 /* Position and style the close button (top right corner) */
 .bottomNav .closebtn {
@@ -48,6 +51,38 @@
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
+}
+
+.bottomNav .barButtonArea {
+  width: 110px;
+}
+
+.barButtonArea a:hover{
+  color: #f1f1f1;
+}
+
+.bottomNav .titleArea {
+  width: 40%;
+}
+
+.line {
+  width: 1px;
+  height: 60%;
+  background-color: beige;
+  opacity: 50%;
+}
+
+.titleArea a {
+  font-size:medium;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  animation: color-change 1s infinite;
+}
+
+@keyframes color-change {
+  0% {opacity: 100%}
+  50% {opacity: 20%}
+  100% {opacity: 100%}
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
