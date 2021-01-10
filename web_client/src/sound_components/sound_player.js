@@ -1,4 +1,6 @@
 import connectionConfig from 'config/connectionConfig.json';
+import * as common from 'resource/common.js';
+
 class SoundPlayer {
 
   static STOPPED = 0;
@@ -19,7 +21,9 @@ class SoundPlayer {
       this.request = new XMLHttpRequest();
       this.musicState = SoundPlayer.LOADING;
       this.prevState = SoundPlayer.LOADING;
+      this.isRandom = true;
 
+      this.connectedScene = null;
       this.manager = manager;
     } catch (err) {
       alert('Web Audio API is not supported in this browser');
@@ -78,7 +82,7 @@ class SoundPlayer {
       if (this.musicState === SoundPlayer.PLAYING) {
         this.currentTime = 0;
         if(this.autoPlay){
-          this.nextSound(true);
+          this.nextSound(true, this.isRandom);
         }else{
           if(this.manager){
             this.musicState = SoundPlayer.STOPPED;
@@ -102,8 +106,10 @@ class SoundPlayer {
   pauseSound = () => {
     this.currentTime += Date.now() - this.initialTime;
     console.log('currentTime : ' + this.currentTime);
-    this.source.stop();
-    this.source.disconnect();
+    if(typeof this.source !== 'undefined' && this.source){
+      this.source = this.source.stop();
+      this.source.disconnect();
+    }
     if(this.manager){
       this.musicState = SoundPlayer.STOPPED;
       this.manager.handlePlayingStateChange(this.musicState);
@@ -112,25 +118,27 @@ class SoundPlayer {
 
   stopSound = () => {
     this.currentTime = 0;
-    if(this.source){
-      this.source.stop();
+    if(typeof this.source !== 'undefined' && this.source){
+      this.source = this.source.stop();
       this.source.disconnect();
     }
   }
 
-  nextSound = (autoPlay, index) => {
+  nextSound = (autoPlay, isRandom, index) => {
     if(this.musicList.length > 0){
       if(this.request.readyState === XMLHttpRequest.HEADERS_RECEIVED
         || this.request.readyState === XMLHttpRequest.LOADING){
           this.request.abort();
         }
-      if(this.musicState != SoundPlayer.LOADING){
+      if(this.musicState !== SoundPlayer.LOADING){
         this.prevState = this.musicState;
       }
       this.stopSound();
       if(typeof index !== 'undefined' && this.musicList.length > index && index >= 0){
         this.currentMusicIndex = index;
-      }else{
+      }else if(isRandom) {
+        this.currentMusicIndex = common.getRandomInt(0, this.musicList.length);
+      }else {
         this.currentMusicIndex = (this.currentMusicIndex + 1) % this.musicList.length;
       }
       if(this.manager){
@@ -139,15 +147,6 @@ class SoundPlayer {
       this.loadSound(autoPlay);
     }
   }
-
-  // getCurrentTime = (playingStatus) => {
-  //   if(playingStatus === SoundPlayer.PLAYING){
-  //     let baseTimeNow = Date.now();
-  //     this.currentTime += baseTimeNow - this.initialTime;
-  //     this.initialTime = baseTimeNow;
-  //   }
-  //   return this.currentTime;
-  // }
 
   getCurrentTime = () => {
     if(this.musicState === SoundPlayer.PLAYING){

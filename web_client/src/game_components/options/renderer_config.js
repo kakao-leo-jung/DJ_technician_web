@@ -7,7 +7,7 @@
 module.exports = {
 
   DefaultRenderer : {
-    clearColor : 0x1f1f1f
+    clearColor : 'bgBlackBright'
   },
 
   DefaultCamera : {

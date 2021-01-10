@@ -73,25 +73,25 @@ class SoundBar extends Component {
 
   toggleMusicChangeButton = (changeValue) => {
     if(this.soundManager.musicList.length <= 0) return;
-    let autoPlay = (this.soundManager.musicState === SoundPlayer.STOPPED) ? false : true;
+    let autoPlay = (this.soundManager.musicState !== SoundPlayer.STOPPED);
     if(this.soundManager.musicState === SoundPlayer.LOADING){
       autoPlay = this.soundManager.prevState;
     }
     if(changeValue === this.NEXT){
-      this.soundManager.nextSound(autoPlay);
+      this.soundManager.nextSound(autoPlay, false);
     }else if(changeValue === this.PREV){
       if(this.soundManager.getCurrentTime() > 5000){
-        this.soundManager.nextSound(autoPlay, this.soundManager.currentMusicIndex);
+        this.soundManager.nextSound(autoPlay, false, this.soundManager.currentMusicIndex);
       }else{
         let prevIndex = (this.soundManager.currentMusicIndex + (this.soundManager.musicList.length - 1)) % this.soundManager.musicList.length;
-        this.soundManager.nextSound(autoPlay, prevIndex);
+        this.soundManager.nextSound(autoPlay, false, prevIndex);
       }
     }
   }
 
   handleGetMusicList = () => {
     if(this.soundManager.musicList.length > 0){
-      this.soundManager.nextSound(false, 0);
+      this.soundManager.nextSound(false, this.soundManager.isRandom);
     }else{
       this.setState({currentMusicName: 'No Musics in playlist..'})      
     }
@@ -101,7 +101,7 @@ class SoundBar extends Component {
     let widthRatio = '0%';
     let totalDuration = this.soundManager.getTotalDuration();
     let currentDuration = this.soundManager.getCurrentTime() / 1000;
-    if(totalDuration != 0){
+    if(totalDuration !== 0){
       widthRatio = currentDuration / totalDuration * 100 + '%';
     }
     this.setState({currentBarStyle : {width: widthRatio}});
@@ -114,7 +114,7 @@ class SoundBar extends Component {
             <div className="currentBar" style={this.state.currentBarStyle}/>
           </div>
           <div id="myBottomNav" className="bottomNav">
-            <div className="line"></div>
+            <div className="line" />
             <div className="barButtonArea">
               <div className="arrow-left" id="beforeButton" />
             </div>
@@ -124,13 +124,13 @@ class SoundBar extends Component {
             <div className="barButtonArea">
               <div className="arrow-right" id="afterButton" />
             </div>
-            <div className="line"></div>
+            <div className="line" />
             <div className="titleArea">
               <a id="currentMusic">
                 {this.state.currentMusicName}
               </a>
             </div>
-            <div className="line"></div>
+            <div className="line" />
             <SoundList />
           </div>
         </div>
