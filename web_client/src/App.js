@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 import SampleConnection from 'network_components/sample_connection';
 import UIScene from 'ui_components/ui_scene';
-import SoundBar from "sound_components/sound_bar";
 import MainScene from "./game_components/scene/main_scene";
 
 class App extends Component {

@@ -50,6 +50,10 @@ public class BgmService {
   }
 
   public byte[] getBgmFileFromGCS(String path, String file_name) {
+
+    LOGGER.info("path : " + path);
+    LOGGER.info("file_name : " + file_name);
+
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
     Blob blob = storage.get(BlobId.of(bucketName, path + file_name));

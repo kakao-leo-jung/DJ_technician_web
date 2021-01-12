@@ -1,141 +1,46 @@
-import React, {Component} from 'react';
-import './css/sound_bar.css';
-import './css/button.css'
-import SoundPlayer from "sound_components/sound_player";
-import SoundList from "sound_components/sound_list";
+import React from 'react'
+import SoundProgress from "./sound_progress";
+import SoundControl from "./sound_control";
+import SoundTitle from "./sound_title";
+import 'sound_components/css/sound_bar.css';
 
-class SoundBar extends Component {
-
-  /*
-    STOPPED = 0
-    PLAYING = 1
-    LOADING = 2
-   */
-  playingButtonClass = [
-    'triangle-right',
-    'pause',
-    'loading'
-  ];
-  PREV = true;
-  NEXT = false;
+class SoundBar extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      playingStatusUI: SoundPlayer.LOADING,
-      currentBarStyle: {
-        width: 0
-      },
-      currentMusicName: 'LOADING...'
-    }
-    this.setupSoundPlayer();
-  }
-
-  setupSoundPlayer() {
-    this.soundManager = new SoundPlayer(this);
-    this.soundManager.loadList();
-  }
-
-  componentDidMount() {
-    this.beforeButton = document.getElementById('beforeButton');
-    this.beforeButton.addEventListener('click', () => {
-      this.toggleMusicChangeButton(this.PREV);
-    });
-    this.afterButton = document.getElementById('afterButton');
-    this.afterButton.addEventListener('click', () => {
-      this.toggleMusicChangeButton(this.NEXT);
-    });
-    this.playButton = document.getElementById('playButton');
-    this.playButton.addEventListener('click', () => {
-      this.togglePlayingButton();
-    });
-
-    setInterval(() => {
-      this.handleCurrentProgress();
-    }, 100);
-  }
-
-  togglePlayingButton = () => {
-    if(this.state.playingStatusUI === SoundPlayer.STOPPED){
-      this.soundManager.playSound();
-    }else if(this.state.playingStatusUI === SoundPlayer.PLAYING){
-      this.soundManager.pauseSound();
+      playerState: {}
     }
   }
 
-  handlePlayingStateChange = (changedState) => {
-    this.setState({playingStatusUI: changedState});
+  handleUpdateSoundState = (playerState) => {
+    console.log('Get PlayerState from SoundPlayer : ');
+    console.log(playerState);
+    this.setState({
+      playerState : playerState
+    })
   }
 
-  handleSoundChange = (title) => {
-    this.setState({currentMusicName: title});
-  }
-
-  toggleMusicChangeButton = (changeValue) => {
-    if(this.soundManager.musicList.length <= 0) return;
-    let autoPlay = (this.soundManager.musicState !== SoundPlayer.STOPPED);
-    if(this.soundManager.musicState === SoundPlayer.LOADING){
-      autoPlay = this.soundManager.prevState;
+  getCurrentPlayingTitle = (state) => {
+    if(state.bgmList && state.bgmIndex
+        && state.bgmList.length > 0){
+      return state.bgmList[state.bgmIndex].title;
     }
-    if(changeValue === this.NEXT){
-      this.soundManager.nextSound(autoPlay, false);
-    }else if(changeValue === this.PREV){
-      if(this.soundManager.getCurrentTime() > 5000){
-        this.soundManager.nextSound(autoPlay, false, this.soundManager.currentMusicIndex);
-      }else{
-        let prevIndex = (this.soundManager.currentMusicIndex + (this.soundManager.musicList.length - 1)) % this.soundManager.musicList.length;
-        this.soundManager.nextSound(autoPlay, false, prevIndex);
-      }
-    }
+    return 'There is no Musics in playing list';
   }
 
-  handleGetMusicList = () => {
-    if(this.soundManager.musicList.length > 0){
-      this.soundManager.nextSound(false, this.soundManager.isRandom);
-    }else{
-      this.setState({currentMusicName: 'No Musics in playlist..'})      
-    }
-  }
-
-  handleCurrentProgress = () => {
-    let widthRatio = '0%';
-    let totalDuration = this.soundManager.getTotalDuration();
-    let currentDuration = this.soundManager.getCurrentTime() / 1000;
-    if(totalDuration !== 0){
-      widthRatio = currentDuration / totalDuration * 100 + '%';
-    }
-    this.setState({currentBarStyle : {width: widthRatio}});
-  }
-
-  render() {
-    return (
-        <div className="bottomBar">
-          <div className="progressBar">
-            <div className="currentBar" style={this.state.currentBarStyle}/>
-          </div>
-          <div id="myBottomNav" className="bottomNav">
-            <div className="line" />
-            <div className="barButtonArea">
-              <div className="arrow-left" id="beforeButton" />
-            </div>
-            <div className="barButtonArea">
-              <div className={this.playingButtonClass[this.state.playingStatusUI]} id="playButton" />
-            </div>
-            <div className="barButtonArea">
-              <div className="arrow-right" id="afterButton" />
-            </div>
-            <div className="line" />
-            <div className="titleArea">
-              <a id="currentMusic">
-                {this.state.currentMusicName}
-              </a>
-            </div>
-            <div className="line" />
-            <SoundList />
-          </div>
+  render(){
+    return(
+      <div className="soundBar">
+        <SoundProgress />
+        <div className="controlBar">
+          <SoundControl />
+          <SoundTitle title={this.getCurrentPlayingTitle(this.state.playerState)}/>
         </div>
+      </div>
     );
   }
+
 }
 
-export default SoundBar;
+export default SoundBar

@@ -1,3 +1,46 @@
+.soundBar {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.progress {
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.controlBar {
+  display:flex;
+  justify-content: center;
+}
+
+.control {
+  display:flex;
+  background-color: #003db7;
+  margin: 10px;
+}
+
+.title {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  margin: 10px;
+  padding: 5px 40px;
+  animation: color-change 1s infinite;
+}
+
+@keyframes color-change {
+  0% {opacity: 100%}
+  50% {opacity: 20%}
+  100% {opacity: 100%}
+}
+
+
+
+
+
+
 .bottomBar {
   width: 100%;
   position: fixed;

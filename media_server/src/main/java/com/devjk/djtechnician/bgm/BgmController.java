@@ -5,6 +5,9 @@ import com.devjk.djtechnician.bgm.dto.BgmList;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 @RestController
 @RequestMapping("/api/bgm")
 public class BgmController {
@@ -20,12 +23,12 @@ public class BgmController {
     return bgmService.getBgmListFromGCS();
   }
 
-  @PostMapping(
+  @GetMapping(
           value = "",
           produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
   )
-  public byte[] getBgmFileFromGCS(@RequestBody BgmInfo bgmInfo){
-    return bgmService.getBgmFileFromGCS(bgmInfo.getDirectory(), bgmInfo.getTitle());
+  public byte[] getBgmFileFromGCS(@RequestParam String directory, @RequestParam String title){
+    return bgmService.getBgmFileFromGCS(directory, title);
   }
 
 }
