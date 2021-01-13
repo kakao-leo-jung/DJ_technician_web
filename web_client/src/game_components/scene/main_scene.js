@@ -12,19 +12,40 @@ class MainScene extends Component {
     }
     this.soundBar = createRef();
     this.currentScene = createRef();
+    this.soundPlayer = new SoundPlayer();
   }
 
   componentDidMount() {
-    this.initSoundPlayer(new SoundPlayer());
+    this.initSoundPlayer(this.soundPlayer);
+    this.startLoop();
 
 
+  }
 
+  componentWillUnmount() {
+    this.stopLoop();
+  }
+
+  startLoop = () => {
+    if(!this._frameId){
+      this._frameId = window.requestAnimationFrame(this.doLoopAnimation);
+    }
+  }
+
+  stopLoop = () => {
+    window.cancelAnimationFrame(this._frameId);
+  }
+
+  doLoopAnimation = () => {
+    this.soundPlayer.doUpdateEachFrame();
+    this._frameId = window.requestAnimationFrame(this.doLoopAnimation);
   }
 
   initSoundPlayer = (soundPlayer) => {
     soundPlayer.setControlUI(this.soundBar);
     soundPlayer.setRenderedUI(this.currentScene);
     soundPlayer.loadList();
+    soundPlayer.doUpdateEachFrame();
   }
 
   render() {

@@ -6,9 +6,9 @@ class SoundControl extends React.Component{
   render(){
     return(
         <div className="control">
-          <div>버튼1</div>
-          <div>버튼2</div>
-          <div>버튼3</div>
+          <div className="arrow-left" />
+          <div className="triangle-right" />
+          <div className="arrow-right" />
         </div>
     );
   }

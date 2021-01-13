@@ -14,8 +14,6 @@ class SoundBar extends React.Component {
   }
 
   handleUpdateSoundState = (playerState) => {
-    console.log('Get PlayerState from SoundPlayer : ');
-    console.log(playerState);
     this.setState({
       playerState : playerState
     })
@@ -26,7 +24,7 @@ class SoundBar extends React.Component {
         && state.bgmList.length > 0){
       return state.bgmList[state.bgmIndex].title;
     }
-    return 'There is no Musics in playing list';
+    return 'Loading Play list...';
   }
 
   render(){

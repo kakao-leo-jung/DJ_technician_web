@@ -20,6 +20,7 @@
   display:flex;
   background-color: #003db7;
   margin: 10px;
+  width: 150px;
 }
 
 .title {

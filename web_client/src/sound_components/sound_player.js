@@ -14,6 +14,11 @@ class SoundPlayer {
     };
     this.controlUI = null;
     this.renderedUI = null;
+
+  }
+
+  doUpdateEachFrame = () => {
+    this.updateStateToControlUI();
   }
 
   setControlUI = (controlUI) => {
@@ -45,7 +50,7 @@ class SoundPlayer {
       console.log('success get list');
       console.log(this.bgmList);
       this.setRandomIndex();
-      this.updateStateToControlUI();
+      // this.updateStateToControlUI();
     }
     request.send();
   }
