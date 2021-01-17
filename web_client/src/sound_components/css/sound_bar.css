@@ -11,23 +11,38 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
+.currentProgress {
+  height: 3px;
+  background-color: #ff7f50;
+}
+
 .controlBar {
   display:flex;
   justify-content: center;
+  align-items: center;
 }
 
 .control {
   display:flex;
-  background-color: #003db7;
   margin: 10px;
   width: 150px;
+  align-items: center;
+}
+
+.titleBg {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  width: 40%;
+  margin: 10px;
+  padding: 10px 40px;
+  display: flex;
+  align-items: center;
 }
 
 .title {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: white;
-  margin: 10px;
-  padding: 5px 40px;
+  animation-delay: 1s;
+  margin-left: auto;
+  margin-right: auto;
   animation: color-change 1s infinite;
 }
 

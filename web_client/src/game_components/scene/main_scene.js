@@ -2,50 +2,40 @@ import React, {Component, createRef} from 'react';
 import LoginScene from "game_components/scene/login_scene";
 import SoundBar from "sound_components/sound_bar";
 import SoundPlayer from "sound_components/sound_player";
+import GameScene from "./game_scene";
 
 class MainScene extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      currentScene : LoginScene
+      currentScene: LoginScene,
+      soundPlayer: {}
     }
     this.soundBar = createRef();
     this.currentScene = createRef();
-    this.soundPlayer = new SoundPlayer();
   }
 
   componentDidMount() {
-    this.initSoundPlayer(this.soundPlayer);
-    this.startLoop();
+    let soundPlayer = new SoundPlayer(this);
+    this.initSoundPlayer(soundPlayer);
 
 
   }
 
   componentWillUnmount() {
-    this.stopLoop();
-  }
-
-  startLoop = () => {
-    if(!this._frameId){
-      this._frameId = window.requestAnimationFrame(this.doLoopAnimation);
-    }
-  }
-
-  stopLoop = () => {
-    window.cancelAnimationFrame(this._frameId);
-  }
-
-  doLoopAnimation = () => {
-    this.soundPlayer.doUpdateEachFrame();
-    this._frameId = window.requestAnimationFrame(this.doLoopAnimation);
+    // this.stopLoop();
   }
 
   initSoundPlayer = (soundPlayer) => {
-    soundPlayer.setControlUI(this.soundBar);
-    soundPlayer.setRenderedUI(this.currentScene);
+    soundPlayer.initPlayer();
     soundPlayer.loadList();
-    soundPlayer.doUpdateEachFrame();
+  }
+
+  handleUpdatePlayerState = (player) => {
+    this.setState({
+      soundPlayer: player
+    });
   }
 
   render() {
@@ -54,7 +44,7 @@ class MainScene extends Component {
           <this.state.currentScene ref={this.currentScene} />
           {/*Drawing Sound Bar Components*/}
           <div style={{position : 'relative'}}>
-            <SoundBar ref={this.soundBar}/>
+            <SoundBar ref={this.soundBar} soundPlayer={this.state.soundPlayer}/>
           </div>
         </div>
     );

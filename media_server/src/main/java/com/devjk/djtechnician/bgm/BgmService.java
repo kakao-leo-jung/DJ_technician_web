@@ -57,10 +57,13 @@ public class BgmService {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
     Blob blob = storage.get(BlobId.of(bucketName, path + file_name));
-    blob.downloadTo(outputStream);
 
-    LOGGER.debug("Get media file from storage");
-    LOGGER.debug(outputStream.toString());
+    if(blob != null){
+      LOGGER.info("Start Download To");
+      blob.downloadTo(outputStream);
+    }else{
+      LOGGER.info("Blob is null!");
+    }
 
     return outputStream.toByteArray();
   }

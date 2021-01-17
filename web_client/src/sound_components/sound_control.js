@@ -1,14 +1,60 @@
 import React from 'react'
 import 'sound_components/css/button.css';
+import SoundPlayer from "./old/sound_player_old2";
 
 class SoundControl extends React.Component{
+
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props.playingStatus !== nextProps.playingStatus){
+      return true;
+    }
+    return false;
+  }
+
+  componentDidMount() {
+    let playingButton = document.getElementById('playingButton');
+    playingButton.addEventListener('click', (event) => {
+      switch(this.props.playingStatus){
+        case SoundPlayer.LOADING:
+          break;
+        case SoundPlayer.READY:
+          this.props.func_playBgm();
+          break;
+        case SoundPlayer.PLAYING:
+          this.props.pauseBgm();
+          break;
+        default:
+          break;
+      }
+    });
+    let nextButton = document.getElementById('nextButton');
+    nextButton.addEventListener('click', (event) => {
+      this.props.playNextBgm();
+    });
+
+  }
+
+  getPlayingButtonClass = () => {
+    let playingStatus = this.props.playingStatus;
+    console.log('change playing Status : ' + playingStatus);
+    switch(playingStatus){
+      case SoundPlayer.LOADING:
+        return "loading";
+      case SoundPlayer.READY:
+        return "triangle-right";
+      case SoundPlayer.PLAYING:
+        return "pause";
+      default:
+        return "loading";
+    }
+  }
 
   render(){
     return(
         <div className="control">
           <div className="arrow-left" />
-          <div className="triangle-right" />
-          <div className="arrow-right" />
+          <div className={this.getPlayingButtonClass()} id="playingButton" />
+          <div className="arrow-right" id="nextButton" />
         </div>
     );
   }
