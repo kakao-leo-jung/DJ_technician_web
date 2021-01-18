@@ -4,7 +4,7 @@ class SoundProgress extends React.Component{
 
   getWidth = () => {
     let duration = this.props.duration;
-    let progress = this.props.progress;
+    let progress = this.props.progress / 1000;
     let _width = "0%";
     if(duration !== 0){
       _width = (progress / duration * 100) + "%";

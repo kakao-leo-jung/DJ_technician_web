@@ -20,28 +20,34 @@ class SoundBar extends React.Component {
   }
 
   getCurrentBgmControlFunction = () => {
-    return this.props.soundPlayer.func_playBgm;
+    return {
+      playBgm: this.props.soundPlayer.func_playBgm,
+      pauseBgm: this.props.soundPlayer.func_pauseBgm
+    };
   }
 
-  getCurrentProgress = (state) => {
-    return state.bgmSeek;
+  getCurrentProgress = () => {
+    return this.props.soundPlayerFrame.seek;
   }
 
-  getCurrentDuration = (state) => {
-    return state.bgmDuration;
+  getCurrentDuration = () => {
+    if(this.props.soundPlayer.soundInfo){
+      return this.props.soundPlayer.soundInfo.duration;
+    }
+    return 0;
   }
 
   render(){
     return(
       <div className="soundBar">
         <SoundProgress
-            // duration={this.getCurrentDuration(this.state.playerState)}
-            // progress={this.getCurrentProgress(this.state.playerState)}
+            duration={this.getCurrentDuration()}
+            progress={this.getCurrentProgress()}
         />
         <div className="controlBar">
           <SoundControl
               playingStatus={this.getCurrentBgmPlayingStatus()}
-              func_playBgm={this.getCurrentBgmControlFunction()}
+              func={this.getCurrentBgmControlFunction()}
           />
           <SoundTitle
               title={this.getCurrentMusicPlayingTitle()}

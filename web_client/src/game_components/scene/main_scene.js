@@ -10,21 +10,34 @@ class MainScene extends Component {
     super(props);
     this.state = {
       currentScene: LoginScene,
-      soundPlayer: {}
+      soundPlayer: {},
+      soundPlayerFrame: {}
     }
     this.soundBar = createRef();
     this.currentScene = createRef();
+    this.soundPlayer = new SoundPlayer(this);
   }
 
   componentDidMount() {
-    let soundPlayer = new SoundPlayer(this);
-    this.initSoundPlayer(soundPlayer);
-
-
+    this.initSoundPlayer(this.soundPlayer);
+    this.startLoop();
   }
 
   componentWillUnmount() {
-    // this.stopLoop();
+    this.stopLoop();
+  }
+
+  startLoop = () => {
+    this.loopId = window.requestAnimationFrame(() => this.doUpdateLoop());
+  }
+
+  stopLoop = () => {
+    window.cancelAnimationFrame(this.loopId);
+  }
+
+  doUpdateLoop = () => {
+    this.handleUpdatePlayerStatePerFrame(this.soundPlayer.getUpdatePlayerStatePerFrame())
+    this.startLoop();
   }
 
   initSoundPlayer = (soundPlayer) => {
@@ -38,13 +51,23 @@ class MainScene extends Component {
     });
   }
 
+  handleUpdatePlayerStatePerFrame = (player) => {
+    this.setState({
+      soundPlayerFrame: player
+    });
+  }
+
   render() {
     return (
         <div>
           <this.state.currentScene ref={this.currentScene} />
           {/*Drawing Sound Bar Components*/}
           <div style={{position : 'relative'}}>
-            <SoundBar ref={this.soundBar} soundPlayer={this.state.soundPlayer}/>
+            <SoundBar
+                ref={this.soundBar}
+                soundPlayer={this.state.soundPlayer}
+                soundPlayerFrame={this.state.soundPlayerFrame}
+            />
           </div>
         </div>
     );

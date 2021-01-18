@@ -13,7 +13,8 @@ class SoundPlayer {
     this.bgmState = SoundPlayer.LOADING;
     this.soundInfo = {
       initTime: 0,
-      seek: 0
+      seek: 0,
+      duration: 0
     }
     this.bgmOptions = {
       autoPlay: true,
@@ -25,6 +26,10 @@ class SoundPlayer {
     this.source = null;
   }
 
+  /**
+   * User의 직접적인 조작 또는 최초 시작 등
+   * Trigger 에 의해 상태 값이 변경되는 항목
+   */
   updatePlayerState = () => {
     this.manager.handleUpdatePlayerState({
       bgmList: this.bgmList,
@@ -33,14 +38,26 @@ class SoundPlayer {
       soundInfo: {
         initTime: this.soundInfo.initTime,
         seek: this.soundInfo.seek,
-        duration: this.soundInfo.duration
+        duration: this.setCurrentDuration()
       },
       bgmOptions: {
         autoPlay: this.bgmOptions.autoPlay,
         randomPlay: this.bgmOptions.randomPlay
       },
-      func_playBgm: this.playBgm
+      func_playBgm: this.playBgm,
+      func_pauseBgm: this.pauseBgm
     });
+  }
+
+  /**
+   * User의 직접 조작과는 무관하게
+   * 사운드가 연주되면서 실시간으로 변경되는 항목
+   * MainScene이 매 Frame 마다 호출하면 상태 값을 갱신해서 리턴한다.
+   */
+  getUpdatePlayerStatePerFrame = () => {
+    return {
+      seek: this.setCurrentSeek()
+    }
   }
 
   initPlayer = () => {
@@ -71,9 +88,20 @@ class SoundPlayer {
     }
   }
 
+  /**
+   * 현재 sound_player의 Bgm 연주 상태를 갱신하고,
+   * 연결된 UI 매니저에 통보 한다.
+   * LOADING = 0;
+   * READY = 1;
+   * PLAYING = 2;
+   * @param status
+   */
   setPlayingStatus = (status) => {
-    this.bgmState = status;
-    this.updatePlayerState();
+    if(status === SoundPlayer.LOADING || status === SoundPlayer.READY
+        || status === SoundPlayer.PLAYING){
+      this.bgmState = status;
+      this.updatePlayerState();
+    }
   }
 
   isAudioAvailable = () => {
@@ -81,8 +109,13 @@ class SoundPlayer {
     return true;
   }
 
+  /**
+   * 현재 지정된 곡 리스트를 서버로 부터 호출하여
+   * buffer 에 적재한다.
+   * @returns {Promise<boolean>}
+   */
   loadSound = async () => {
-    if(!this.isAudioAvailable()) return;
+    if(!this.isAudioAvailable()) return false;
     this.setPlayingStatus(SoundPlayer.LOADING);
     let target = this.bgmList[this.bgmIndex];
     let directory = encodeURIComponent(target.directory);
@@ -92,7 +125,6 @@ class SoundPlayer {
     if(response.ok && response.status === 200){
       let returnBuffer = await response.arrayBuffer();
       this.buffer = await this.audioContext.decodeAudioData(returnBuffer);
-      console.log(this.buffer.duration);
       this.setPlayingStatus(SoundPlayer.READY);
       return true;
     }else{
@@ -103,6 +135,10 @@ class SoundPlayer {
     }
   }
 
+  /**
+   * 새로운 Source 를 생성한 후 context 와 연결한다.
+   * 기존 buffer 가 존재하거나, load 후 사용 가능.
+   */
   initSound = () => {
     if(this.buffer) {
       this.source = this.audioContext.createBufferSource();
@@ -115,29 +151,76 @@ class SoundPlayer {
     }
   }
 
+  /**
+   * Controller 에 의해 들어온 bgm 재생 요청을 처리
+   * 이전 상태가 STOP(buffer == null) 상태이면 음원을 로드 후 재생
+   * PAUSE 상태이면 현재 buffer 의 음원을 바로 재생
+   * @returns {Promise<void>}
+   */
   playBgm = async () => {
-    let loadResult = await this.loadSound();
+    let loadResult = (this.buffer) ? true : await this.loadSound();
     if(loadResult && this.buffer){
       this.playSource();
     }
   }
 
+  /**
+   * 새로운 Source 를 생성 후 연주한다.
+   * Source 가 시작되면, 시작시간 및 연주상태를 업데이트한다.
+   */
   playSource = () => {
     this.initSound();
-    this.soundInfo.initTime = Date.now();
     if(this.source) {
       this.source.start(0, this.soundInfo.seek / 1000);
+      this.soundInfo.initTime = Date.now();
       this.setPlayingStatus(SoundPlayer.PLAYING);
     }
   }
 
-  pauseBgm = () => {
-
+  /**
+   * Pause 상태이면 this.buffer != null
+   * Stop 상태이면 this.buffer == null
+   * 로 세부 상태 파악 가능.
+   * @param isFullyStop
+   */
+  pauseBgm = (isFullyStop = false) => {
+    if(this.source){
+      this.source.stop();
+      if(isFullyStop){
+        this.buffer = null;
+        this.soundInfo.seek = 0;
+      }
+      this.source = null;
+      this.setPlayingStatus(SoundPlayer.READY);
+    }
   }
 
   playNextBgm = () => {
 
   }
+
+  /**
+   * 현재 곡의 진행 시각을 갱신한다.
+   */
+  setCurrentSeek = () => {
+    if(this.source && this.buffer){
+      let now = Date.now();
+      this.soundInfo.seek += now - this.soundInfo.initTime;
+      this.soundInfo.initTime = now;
+    }
+    return this.soundInfo.seek;
+  }
+
+  /**
+   * 현재 buffer 에 담긴 곡의 길이를 반환
+   * @returns {number}
+   */
+  setCurrentDuration = () => {
+    this.soundInfo.duration = (this.buffer) ? this.buffer.duration : 0;
+    return this.soundInfo.duration
+  }
+
+
 
 }
 

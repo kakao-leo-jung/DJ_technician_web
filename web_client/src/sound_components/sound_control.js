@@ -18,10 +18,10 @@ class SoundControl extends React.Component{
         case SoundPlayer.LOADING:
           break;
         case SoundPlayer.READY:
-          this.props.func_playBgm();
+          this.props.func.playBgm();
           break;
         case SoundPlayer.PLAYING:
-          this.props.pauseBgm();
+          this.props.func.pauseBgm();
           break;
         default:
           break;
@@ -36,7 +36,6 @@ class SoundControl extends React.Component{
 
   getPlayingButtonClass = () => {
     let playingStatus = this.props.playingStatus;
-    console.log('change playing Status : ' + playingStatus);
     switch(playingStatus){
       case SoundPlayer.LOADING:
         return "loading";
