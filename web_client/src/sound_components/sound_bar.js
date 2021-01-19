@@ -22,7 +22,8 @@ class SoundBar extends React.Component {
   getCurrentBgmControlFunction = () => {
     return {
       playBgm: this.props.soundPlayer.func_playBgm,
-      pauseBgm: this.props.soundPlayer.func_pauseBgm
+      pauseBgm: this.props.soundPlayer.func_pauseBgm,
+      playNextBgm: this.props.soundPlayer.func_playNextBgm
     };
   }
 

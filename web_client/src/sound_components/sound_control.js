@@ -29,7 +29,7 @@ class SoundControl extends React.Component{
     });
     let nextButton = document.getElementById('nextButton');
     nextButton.addEventListener('click', (event) => {
-      this.props.playNextBgm();
+      this.props.func.playNextBgm();
     });
 
   }
