@@ -100,7 +100,12 @@ class LoginScene extends Component {
   }
 
   renderScene = () => {
+
     this.composer.render();
+  }
+
+  analyzeData = (arrayData) => {
+    return arrayData.toString();
   }
 
   render() {
@@ -110,7 +115,9 @@ class LoginScene extends Component {
             ref={mount => {
               this.mount = mount
             }}
-        />
+        >
+          <h1>{this.analyzeData(this.props.soundVisualFrame)}</h1>
+        </div>
     );
   }
 

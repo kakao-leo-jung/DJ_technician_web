@@ -11,7 +11,8 @@ class MainScene extends Component {
     this.state = {
       currentScene: LoginScene,
       soundPlayer: {},
-      soundPlayerFrame: {}
+      soundPlayerFrame: {},
+      soundVisualFrame: []
     }
     this.soundBar = createRef();
     this.currentScene = createRef();
@@ -53,14 +54,19 @@ class MainScene extends Component {
 
   handleUpdatePlayerStatePerFrame = (player) => {
     this.setState({
-      soundPlayerFrame: player
+      soundPlayerFrame: player.soundBarState,
+      soundVisualFrame: player.visualData
     });
+
   }
 
   render() {
     return (
         <div>
-          <this.state.currentScene ref={this.currentScene} />
+          <this.state.currentScene
+              ref={this.currentScene}
+              soundVisualFrame={this.state.soundVisualFrame}
+          />
           {/*Drawing Sound Bar Components*/}
           <div style={{position : 'relative'}}>
             <SoundBar
