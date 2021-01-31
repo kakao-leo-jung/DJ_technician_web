@@ -10,7 +10,10 @@ class Block extends THREE.Mesh {
     this.position.set(position.x, position.y, position.z);
   }
 
-  /* delta 는 이전 frame과 현재 frame 사이의 시간 차이 */
+  /**
+   * Animate Line object
+   * @param delta 이전 Frame 과 현재 Frame 사이의 시간 차이
+   */
   animate = (delta) => {
     const temp_speed = 0;
     // this.position.set(this.position.x, this.position.y + temp_speed * delta, this.position.z);

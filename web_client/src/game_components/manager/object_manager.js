@@ -1,5 +1,10 @@
 import * as BlockManager from 'game_components/manager/objects/block_manager';
+import * as BackgroundManager from 'game_components/manager/background_manager.js';
 
+/**
+ * InGame Object 세팅
+ * @param sceneManager
+ */
 export const setInGameObjects = (sceneManager) => {
 
   /* Set Block Objects */
@@ -15,9 +20,14 @@ export const setInGameObjects = (sceneManager) => {
 
 }
 
+
+/**
+ * Login Object 세팅
+ * @param sceneManager
+ */
 export const setLoginObjects = (sceneManager) => {
 
-  /* TODO: set Login Objects */
-
+  /* Set LoginScene Objects */
+  BackgroundManager.setLoginBackground(sceneManager);
 
 }

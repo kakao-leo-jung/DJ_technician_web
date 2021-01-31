@@ -26,6 +26,22 @@ module.exports = {
     }
   },
 
+  ClosedCamera : {
+    fov : 50,
+    near : 0.1,
+    far : 10000,
+    position : {
+      x : 0,
+      y : 0,
+      z : 1350
+    },
+    lookAt : {
+      x : 0,
+      y : 0,
+      z : 0
+    }
+  },
+
   DefaultLight : {
     color : 0xFFFFFF,
     intensity : 2,

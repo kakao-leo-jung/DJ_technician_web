@@ -5,7 +5,7 @@ import SceneManager from "game_components/manager/scene_manager";
 import * as CameraManager from "game_components/manager/camera_manager";
 import * as ObjectManager from "game_components/manager/object_manager";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
-import * as PassManager from "../manager/pass_manager";
+import * as PassManager from "game_components/manager/pass_manager";
 
 class LoginScene extends Component {
 
@@ -24,20 +24,9 @@ class LoginScene extends Component {
     const sceneManager = new SceneManager(new THREE.Scene());
     this.sceneManager = sceneManager;
 
-    /* 3. Set Camara */
-    const cameraConfig = config.DefaultCamera;
-    const camera = new THREE.PerspectiveCamera(
-        cameraConfig.fov,
-        clientWidth / clientHeight,
-        cameraConfig.near,
-        cameraConfig.far
-    );
-    camera.position.set(cameraConfig.position.x, cameraConfig.position.y, cameraConfig.position.z);
-    camera.lookAt(new THREE.Vector3(cameraConfig.lookAt.x, cameraConfig.lookAt.y, cameraConfig.lookAt.z));
-    this.camera = camera;
-
-    /* 3-1 set camera OrbitControls */
-    CameraManager.setDefaultOrbitControl(this.sceneManager, this.camera, this.renderer);
+    /* 3. Set Camera */
+    this.camera = CameraManager.getClosedCamera(clientWidth, clientHeight);
+    CameraManager.setClosedOrbitControl(this.sceneManager, this.camera, this.renderer);
 
     /* 4. setLight */
     const lightConfig = config.DefaultLight;
@@ -100,7 +89,6 @@ class LoginScene extends Component {
   }
 
   renderScene = () => {
-
     this.composer.render();
   }
 
@@ -116,7 +104,6 @@ class LoginScene extends Component {
               this.mount = mount
             }}
         >
-          <h1>{this.analyzeData(this.props.soundVisualFrame)}</h1>
         </div>
     );
   }

@@ -2,15 +2,16 @@ import * as THREE from 'three';
 
 class SceneManager {
 
-  constructor(scene) {
+  constructor(scene, gridHelperOn = false) {
     this.scene = scene;
     this.scene.updateMatrixWorld();
     this.objectArray = [];
 
     /* GridHelper */
-    const gridHelper = new THREE.GridHelper(3000, 300);
-    this.scene.add(gridHelper);
-
+    if(gridHelperOn){
+      const gridHelper = new THREE.GridHelper(3000, 300);
+      this.scene.add(gridHelper);
+    }
   }
 
   addObject = (object) => {
@@ -18,9 +19,9 @@ class SceneManager {
     this.objectArray.push(object);
   }
 
-  updateObject = (delta) => {
+  updateObject = (delta, params) => {
     this.objectArray.map(obj =>
-      obj.animate(delta)
+      obj.animate(delta, params)
     )
   }
 

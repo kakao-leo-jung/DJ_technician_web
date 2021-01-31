@@ -1,8 +1,7 @@
 import React, {Component, createRef} from 'react';
-import LoginScene from "game_components/scene/login_scene";
+import LoginScene from "game_components/scene/login/login_scene";
 import SoundBar from "sound_components/sound_bar";
 import SoundPlayer from "sound_components/sound_player";
-import GameScene from "./game_scene";
 
 class MainScene extends Component {
 
