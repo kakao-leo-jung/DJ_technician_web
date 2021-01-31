@@ -83,17 +83,16 @@ class LoginScene extends Component {
   }
 
   animate = () => {
-    this.sceneManager.updateObject(this.delta = this.clock.getDelta());
+    this.sceneManager.updateObject(
+        this.delta = this.clock.getDelta(),
+        this.props.soundVisualFrame
+    );
     this.renderScene();
     this.frameId = window.requestAnimationFrame(this.animate);
   }
 
   renderScene = () => {
     this.composer.render();
-  }
-
-  analyzeData = (arrayData) => {
-    return arrayData.toString();
   }
 
   render() {

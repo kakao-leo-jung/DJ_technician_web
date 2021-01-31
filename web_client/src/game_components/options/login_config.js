@@ -9,7 +9,7 @@ module.exports = {
    */
   Visualizer : {
     line : {
-      color : 0xffffff,
+      color : 0xff0000,
       position : [
         {x: -1500, y: 0, z: 0},
 //        {x: 0, y: 1000, z: 0},

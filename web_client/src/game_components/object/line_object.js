@@ -16,8 +16,19 @@ class Line extends THREE.Line {
   /**
    * Animate Line object
    * @param delta 이전 Frame 과 현재 Frame 사이의 시간 차이
+   * @param visualizerParams
    */
   animate = (delta, visualizerParams) => {
+
+    if(visualizerParams instanceof Uint8Array){
+      this.geometry.attributes.position.needsUpdate = true;
+      let pos = [];
+      let dataLength = visualizerParams.length;
+      visualizerParams.forEach((data, index) => {
+        pos.push(new THREE.Vector3(-1500 + (3000 / dataLength) * index, data, 0));
+      });
+      this.geometry.setFromPoints(pos);
+    }
 
   }
 
