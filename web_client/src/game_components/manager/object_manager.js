@@ -1,5 +1,6 @@
 import * as BlockManager from 'game_components/manager/objects/block_manager';
 import * as BackgroundManager from 'game_components/manager/background_manager.js';
+import LoginConfig from 'game_components/options/login_config';
 
 /**
  * InGame Object 세팅
@@ -28,6 +29,6 @@ export const setInGameObjects = (sceneManager) => {
 export const setLoginObjects = (sceneManager) => {
 
   /* Set LoginScene Objects */
-  BackgroundManager.setLoginBackground(sceneManager);
+  BackgroundManager.setLoginBackground(sceneManager, LoginConfig.Visualizer);
 
 }

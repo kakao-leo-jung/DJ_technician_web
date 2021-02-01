@@ -1,12 +1,14 @@
-import * as Visualizer01Manager from 'game_components/manager/objects/visualizer01_manager.js';
+import Visualizer01 from 'game_components/manager/objects/visualizer01';
 
 /**
  * LoginScene의 백그라운드 매니징.
  * @param sceneManager
+ * @param config
  */
-const setLoginBackground = (sceneManager) => {
+const setLoginBackground = (sceneManager, config) => {
 
-  Visualizer01Manager.setVisualizer01(sceneManager);
+  let visualizer = Visualizer01.createVisualizer01(config);
+  sceneManager.addObjectModule(visualizer);
 
 }
 

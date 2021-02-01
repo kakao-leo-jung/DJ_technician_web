@@ -2,22 +2,24 @@
 
 class SoundAnalyzer {
 
-  FFT_SIZE = 2048;
+  static FFT_SIZE = 512;
 
   constructor(audioContext) {
     this.audioContext = audioContext;
     this.analyzer = this.audioContext.createAnalyser();
     this.bufferLength = null;
-    this.dataArray = null;
+    this.frequencyArray = null;
+    this.timeDomainArray = null;
   }
 
   /**
    * visualizer 초기 세팅
    */
   initAnalyzer = () => {
-    this.analyzer.fftSize = this.FFT_SIZE;
+    this.analyzer.fftSize = SoundAnalyzer.FFT_SIZE;
     this.bufferLength = this.analyzer.frequencyBinCount;
-    this.dataArray = new Uint8Array(this.bufferLength);
+    this.frequencyArray = new Uint8Array(this.bufferLength);
+    this.timeDomainArray = new Uint8Array(this.bufferLength);
   }
 
   /**
@@ -29,14 +31,19 @@ class SoundAnalyzer {
     this.analyzer.connect(this.audioContext.destination);
   }
 
+
   /**
    * 현재 진행되고 있는 소스의
    * 음성 분석 데이터 리턴
    */
   getDataArray = () => {
-    if(this.dataArray){
-      this.analyzer.getByteFrequencyData(this.dataArray);
-      return this.dataArray;
+    if(this.frequencyArray && this.timeDomainArray){
+      this.analyzer.getByteFrequencyData(this.frequencyArray);
+      this.analyzer.getByteTimeDomainData(this.timeDomainArray);
+      return {
+        frequencySoundData : this.frequencyArray,
+        timeDomainSoundData : this.timeDomainArray
+      };
     }
     return {};
   }

@@ -30,7 +30,8 @@ class LoginScene extends Component {
 
     /* 4. setLight */
     const lightConfig = config.DefaultLight;
-    const light = new THREE.PointLight(lightConfig.color, lightConfig.intensity);
+    const light = new THREE.AmbientLight(lightConfig.color);
+    // const light = new THREE.LightShadow(lightConfig.color, lightConfig.intensity);
     light.position.set(lightConfig.position.x, lightConfig.position.y, lightConfig.position.z);
     sceneManager.scene.add(light);
 

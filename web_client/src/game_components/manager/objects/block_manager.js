@@ -1,6 +1,8 @@
 import BlockObject from 'game_components/object/block_object.js';
 import InGameConfig from 'game_components/options/ingame_config';
 
+// TODO: visualizer01 처럼 Objects 형식으로 변경할 것.
+
 const setBMSBlocks = (sceneManager, noteList) => {
 
   noteList.forEach(note => {

@@ -33,7 +33,7 @@ module.exports = {
     position : {
       x : 0,
       y : 0,
-      z : 1350
+      z : 1250
     },
     lookAt : {
       x : 0,
@@ -48,7 +48,7 @@ module.exports = {
     position : {
       x : 0,
       y : 0,
-      z : 2000
+      z : 5000
     }
   },
 

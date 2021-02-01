@@ -1,22 +1,14 @@
+import VisualizerConfig from 'game_components/options/visualizer_config';
+
 /**
  * LoginScene config 상태 값.
  * @type {{}}
  */
-module.exports = {
+export default {
 
   /**
-   * background visualizer option
+   * background visualizer
    */
-  Visualizer : {
-    line : {
-      color : 0xff0000,
-      position : [
-        {x: -1500, y: 0, z: 0},
-//        {x: 0, y: 1000, z: 0},
-        {x: 1500, y: 0, z: 0}
-      ]
-    }
-
-  }
+  Visualizer : VisualizerConfig.Visualizer01
 
 }
