@@ -43,9 +43,9 @@ class Visualizer01 {
    * @returns {Block}
    */
   #makeVisualizeBlock = (index, config, divideSize) => {
-    let maxWidth = config.width;
+    let width = config.width;
     let whiteSpace = config.whiteSpace;
-    let width = maxWidth / divideSize - whiteSpace;
+    let maxWidth = (width + whiteSpace) * divideSize;
     let height = config.height;
     let depth = config.depth;
     let color = config.baseColor;
@@ -76,9 +76,11 @@ class Visualizer01 {
           let frequencyData = visualizerParams.frequencySoundData[index];
           let timeDomainData = visualizerParams.timeDomainSoundData[index];
           let mainColorSetIndex = parseInt(timeDomainData / 43);
-          let subColorSetIndex = parseInt(timeDomainData % 4);
-          object.material.color.setStyle(ColorResource.NeonHexaColorSet[mainColorSetIndex][subColorSetIndex]);
-          this.#updateHeight(object, frequencyData * 2);
+          let subColorSetIndex = parseInt(timeDomainData % 5);
+          let changedHeight = frequencyData;
+          object.material.color.setStyle(ColorResource.NeonHexaColorSet[4][subColorSetIndex]);
+          object.setPosition(object.position.x, changedHeight / 2, object.position.z);
+          this.#updateHeight(object, changedHeight);
         }
       })
     }

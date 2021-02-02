@@ -11,6 +11,17 @@ class Block extends THREE.Mesh {
   }
 
   /**
+   * Set Position
+   * @param x
+   * @param y
+   * @param z
+   */
+  setPosition = (x, y, z) => {
+    this.position.set(x, y, z);
+  }
+
+
+  /**
    * Animate Line object
    * @param delta 이전 Frame 과 현재 Frame 사이의 시간 차이
    */

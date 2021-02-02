@@ -2,7 +2,7 @@
 
 class SoundAnalyzer {
 
-  static FFT_SIZE = 512;
+  static FFT_SIZE = 256;
 
   constructor(audioContext) {
     this.audioContext = audioContext;
@@ -20,6 +20,8 @@ class SoundAnalyzer {
     this.bufferLength = this.analyzer.frequencyBinCount;
     this.frequencyArray = new Uint8Array(this.bufferLength);
     this.timeDomainArray = new Uint8Array(this.bufferLength);
+    this.analyzer.minDecibels = -90;
+    this.analyzer.maxDecibels = 0;
   }
 
   /**
