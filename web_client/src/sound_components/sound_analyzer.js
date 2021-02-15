@@ -2,7 +2,10 @@
 
 class SoundAnalyzer {
 
-  static FFT_SIZE = 256;
+  static FFT_SIZE = 512;
+  static TIME_CONSTANT = 0.3;   // 0 ~ 1 default : 0.8
+  static MAX_DECIBELS = 0;
+  static MIN_DECIBELS = -90;
 
   constructor(audioContext) {
     this.audioContext = audioContext;
@@ -18,10 +21,11 @@ class SoundAnalyzer {
   initAnalyzer = () => {
     this.analyzer.fftSize = SoundAnalyzer.FFT_SIZE;
     this.bufferLength = this.analyzer.frequencyBinCount;
+    this.analyzer.smoothingTimeConstant = SoundAnalyzer.TIME_CONSTANT;
     this.frequencyArray = new Uint8Array(this.bufferLength);
     this.timeDomainArray = new Uint8Array(this.bufferLength);
-    this.analyzer.minDecibels = -90;
-    this.analyzer.maxDecibels = 0;
+    this.analyzer.maxDecibels = SoundAnalyzer.MAX_DECIBELS;
+    this.analyzer.minDecibels = SoundAnalyzer.MIN_DECIBELS;
   }
 
   /**

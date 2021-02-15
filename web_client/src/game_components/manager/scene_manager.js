@@ -14,6 +14,7 @@ class SceneManager {
     }
   }
 
+
   /**
    * Scene 에 오브젝트를 추가하고
    * 따로 관리 리스트에 추가한다.
@@ -23,6 +24,7 @@ class SceneManager {
     this.scene.add(object);
     this.objectArray.push(object);
   }
+
 
   /**
    * 오브젝트 모음을 받아 개별 오브젝트를 Scene 에 추가한다.
@@ -39,6 +41,7 @@ class SceneManager {
       this.objectArray.push(objectModule);
     }
   }
+
 
   /**
    * objectArray 에 속한 Object, ObjectModule 의 상태값을

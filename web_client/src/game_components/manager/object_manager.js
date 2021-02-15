@@ -29,6 +29,6 @@ export const setInGameObjects = (sceneManager) => {
 export const setLoginObjects = (sceneManager) => {
 
   /* Set LoginScene Objects */
-  BackgroundManager.setLoginBackground(sceneManager, LoginConfig.Visualizer);
+  BackgroundManager.setLoginBackground(sceneManager, LoginConfig);
 
 }

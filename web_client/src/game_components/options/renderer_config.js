@@ -7,7 +7,8 @@
 module.exports = {
 
   DefaultRenderer : {
-    clearColor : 'bgBlackBright'
+    clearColor : 0x000000,
+    physicallyCorrectLights : false
   },
 
   DefaultCamera : {
@@ -33,7 +34,7 @@ module.exports = {
     position : {
       x : 0,
       y : 0,
-      z : 1250
+      z : 4500
     },
     lookAt : {
       x : 0,
@@ -44,11 +45,11 @@ module.exports = {
 
   DefaultLight : {
     color : 0xFFFFFF,
-    intensity : 2,
+    intensity : 10,
     position : {
       x : 0,
       y : 0,
-      z : 5000
+      z : 0
     }
   },
 

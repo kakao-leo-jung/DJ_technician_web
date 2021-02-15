@@ -1,3 +1,16 @@
+/**
+ * ColorSet
+ */
+
+module.exports.NeonColorGroup = {
+  YELLOW: 0,
+  RED: 1,
+  GREEN: 2,
+  BLUE: 3,
+  PINK: 4,
+  PURPLE: 5
+}
+
 module.exports.NeonHexaColorSet = [
   ['#FFFF00', '#FFFF33', '#F2EA02', '#E6FB04','#FFFFFF'],
   ['#FF0000', '#FD1C03', '#FF3300', '#FF6600','#FFFFFF'],

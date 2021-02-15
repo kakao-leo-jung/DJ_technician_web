@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 class Block extends THREE.Mesh {
-
+O
   constructor(size, color, position) {
 
     const material = new THREE.MeshPhongMaterial({color});

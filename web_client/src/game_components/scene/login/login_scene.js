@@ -18,6 +18,7 @@ class LoginScene extends Component {
     const renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(clientWidth, clientHeight);
     renderer.setClearColor(config.DefaultRenderer.clearColor);
+    renderer.physicallyCorrectLights = config.DefaultRenderer.physicallyCorrectLights;
     this.renderer = renderer;
 
     /* 2. Set SceneManager */
@@ -30,9 +31,7 @@ class LoginScene extends Component {
 
     /* 4. setLight */
     const lightConfig = config.DefaultLight;
-    const light = new THREE.AmbientLight(lightConfig.color);
-    // const light = new THREE.LightShadow(lightConfig.color, lightConfig.intensity);
-    light.position.set(lightConfig.position.x, lightConfig.position.y, lightConfig.position.z);
+    const light = new THREE.AmbientLight(lightConfig.color)
     sceneManager.scene.add(light);
 
     /* 5. setComposer */
