@@ -1,0 +1,17 @@
+.contentsDiv {
+  width: 80%; /* 0 width - change this with JavaScript */
+  height: 80%;
+  position: absolute;
+  margin-top: 40px;
+  top: 0;
+  background-color: #ffffffaa; /* Black*/
+  overflow: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  text-align: center;
+  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 100%;
+  justify-content: center;
+  /*visibility: hidden;*/
+}

@@ -18,7 +18,7 @@ class App extends Component {
           <MainScene />
         </div>
         {/* Drawing UI Rendering Components */}
-        <div style={{position : 'relative'}}>
+        <div>
           <UIScene />
         </div>
       </div>    
