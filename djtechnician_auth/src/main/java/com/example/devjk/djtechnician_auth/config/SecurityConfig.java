@@ -32,23 +32,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private CustomUserDetailsService customUserDetailsService;
-  private CustomOAuth2UserService customOAuth2UserService;
-  private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-  private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-  private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+  private final CustomUserDetailsService customUserDetailsService;
+  private final CustomOAuth2UserService customOAuth2UserService;
+  private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+  private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
   @Autowired
   public SecurityConfig(CustomUserDetailsService customUserDetailsService,
                         CustomOAuth2UserService customOAuth2UserService,
                         OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler,
-                        OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler,
-                        HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository) {
+                        OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler) {
     this.customUserDetailsService = customUserDetailsService;
     this.customOAuth2UserService = customOAuth2UserService;
     this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
     this.oAuth2AuthenticationFailureHandler = oAuth2AuthenticationFailureHandler;
-    this.httpCookieOAuth2AuthorizationRequestRepository = httpCookieOAuth2AuthorizationRequestRepository;
   }
 
   @Bean
