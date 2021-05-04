@@ -8,6 +8,8 @@ import com.example.devjk.djtechnician_auth.repository.HttpCookieOAuth2Authorizat
 import com.example.devjk.djtechnician_auth.service.CustomOAuth2UserService;
 import com.example.devjk.djtechnician_auth.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,10 +20,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
@@ -116,7 +124,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizationRequestRepository(cookieOAuth2AuthorizationRequestRepository())
             .and()
             .redirectionEndpoint()
-            .baseUri("/oauth2/callback/*")
+            .baseUri("/user/oauth/callback/*")
             .and()
             .userInfoEndpoint()
             .userService(customOAuth2UserService)
@@ -126,5 +134,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
   }
+
+  @Bean public ClientRegistrationRepository clientRegistrationRepository(
+          OAuth2ClientProperties oAuth2ClientProperties,
+          @Value("${custom.oauth2.kakao.client-id}") String kakaoClientId,
+          @Value("${custom.oauth2.kakao.client-secret}") String kakaoClientSecret,
+          @Value("${custom.oauth2.naver.client-id}") String naverClientId,
+          @Value("${custom.oauth2.naver.client-secret}") String naverClientSecret) {
+    List<ClientRegistration> registrations = new ArrayList<>();
+
+        
+/*
+    registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
+            .clientId(kakaoClientId)
+            .clientSecret(kakaoClientSecret)
+            jwkSetUri("temp") .build());
+
+    registrations.add(CustomOAuth2Provider.NAVER.getBuilder("naver")
+            .clientId(naverClientId)
+            .clientSecret(naverClientSecret)
+            .jwkSetUri("temp") .build());
+
+    return new InMemoryClientRegistrationRepository(registrations); }
+*/
+    return null;
 
 }
